@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-
 /models/
 /stagger/
+rest-tagger.sublime-project
+rest-tagger.sublime-workspace
