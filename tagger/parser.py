@@ -1,33 +1,4 @@
 from collections import OrderedDict
-import json
-import socket
-import struct
-import sys
-
-def prepare_data(filename):
-    with open(filename, "rb") as f:
-        data = f.read()
-
-    header = struct.pack('>i', len(data))
-
-    return header + data
-
-def query_server(data):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("127.0.0.1", 9000))
-    s.sendall(data)
-
-    chunks = []
-    while True:
-        part = s.recv(0x1000)
-        if len(part) <= 0:
-            break
-
-        chunks.append(part)
-
-    s.close()
-
-    return "".join(chunks)
 
 POS_FORMAT = OrderedDict([
     (1, "word_index"),
@@ -136,18 +107,3 @@ def parse_response(response):
     entities = entity_buffer.get()
     entities = [build_composite_entity(tokens) for tokens in entities]
     return sentences, entities
-
-def main(filename):
-    data = prepare_data(filename)
-    response = query_server(data)
-    sentences, entities = parse_response(response)
-
-    print json.dumps(OrderedDict([
-        ("sentences", sentences),
-        ("entities", entities),
-    ]), indent=4)
-
-if __name__ == "__main__":
-    assert len(sys.argv) > 1, "Missing filename as parameter"
-
-    main(sys.argv[1])
