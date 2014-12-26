@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Tagger API Console</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/railscasts.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <style>
+        * { max-width: 100%; }
+        body {
+            background: #EEE9E9;
+            font: 1em/1.3 Raleway, sans-serif;
+            margin: 0 auto;
+            max-width: 96%;
+            width: 600px;
+        }
+        h1 {
+            font-family: "Raleway SemiBold", sans-serif;
+        }
+        pre{
+            max-height: 200px;
+            overflow: auto;
+        }
+        textarea {
+            font-size: 0.9em;
+            height: 100px;
+            margin-top: 0.5em;
+            max-width: 96%;
+            padding: 1% 1.4%;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JSON Tagger Documentation</h1>
+    <p>JSON Tagger adds a JSON API on top of <a href="http://www.ling.su.se/english/nlp/tools/stagger">Stagger</a>, the part-of-speech tagger developed by Robert Östling from Stockholm University.</p>
+    <h2>Basic usage</h2>
+    <pre><code class="bash">curl {{ site }}/api/tag -d "Den skogsbrand som rasade i Västmanland"</code></pre>
+    <h2>Response</h2>
+    <pre><code class="json">{
+    "sentences": [
+        [
+            {
+                "word_index": "1",
+                "word_form": "Den",
+                "lemma": "den",
+                "pos_tag": "DT",
+                "morph_feat": "UTR|SIN|DEF",
+                "token_id": "net:0:0"
+            },
+            {
+                "word_index": "2",
+                "word_form": "skogsbrand",
+                "lemma": "skogsbrand",
+                "pos_tag": "NN",
+                "morph_feat": "UTR|SIN|IND|NOM",
+                "token_id": "net:0:4"
+            },
+            {
+                "word_index": "3",
+                "word_form": "som",
+                "lemma": "som",
+                "pos_tag": "HP",
+                "morph_feat": "-|-|-",
+                "token_id": "net:0:15"
+            },
+            {
+                "word_index": "4",
+                "word_form": "rasade",
+                "lemma": "rasa",
+                "pos_tag": "VB",
+                "morph_feat": "PRT|AKT",
+                "token_id": "net:0:19"
+            },
+            {
+                "word_index": "5",
+                "word_form": "i",
+                "lemma": "i",
+                "pos_tag": "PP",
+                "morph_feat": null,
+                "token_id": "net:0:26"
+            },
+            {
+                "word_index": "6",
+                "word_form": "Västmanland",
+                "lemma": "Västmanland",
+                "pos_tag": "PM",
+                "morph_feat": "NOM",
+                "token_id": "net:0:28"
+            }
+        ]
+    ],
+    "entities": [
+        {
+            "word_form": "Västmanland",
+            "lemma": "Västmanland",
+            "ne_type": "inst",
+            "token_ids": [
+                "net:0:28"
+            ]
+        }
+    ]
+}</code></pre>
+    <h2>Try the API with your own sentences</h2>
+    <form action="/api/tag" method="post">
+        <textarea id="data" name="data">Den skogsbrand som rasade i Västmanland lät sig endast med svårighet kuvas. Det var en katastrof som förstörde hus och hem och utplånade stora ekonomiska värden. Räddningstjänsten, försvaret, ortsbefolkningen och många frivilliga gjorde en beundransvärd insats för att begränsa och till sist också kontrollera elden.</textarea>
+        <p><button type="submit">POST</button></p>
+    </form>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
