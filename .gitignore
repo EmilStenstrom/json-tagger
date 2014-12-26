@@ -3,5 +3,5 @@ __pycache__/
 *.py[cod]
 /models/
 /stagger/
-rest-tagger.sublime-project
-rest-tagger.sublime-workspace
+json-tagger.sublime-project
+json-tagger.sublime-workspace
