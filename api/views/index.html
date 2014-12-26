@@ -1,116 +1,497 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSON Tagger API Console</title>
+    <title>JSON Tagger - JSON API for Stagger</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/railscasts.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
     <style>
-        * { max-width: 100%; }
+        body, textarea {
+            font: 1em/1.4 Raleway, sans-serif;
+        }
         body {
             background: #EEE9E9;
-            font: 1em/1.3 Raleway, sans-serif;
             margin: 0 auto;
             max-width: 96%;
             width: 600px;
         }
-        h1 {
-            font-family: "Raleway SemiBold", sans-serif;
+        h1 { font-family: "Raleway SemiBold", sans-serif; }
+        h1, h2 { margin-bottom: -0.25em; }
+        ul li { margin-bottom: 0.5em; }
+        ul.navigation {
+            margin: 1em 0 0;
+            padding: 0;
+            text-align: center;
+        }
+        ul.navigation li {
+            list-style: none;
+            display: inline-block;
         }
         pre{
+            font-size: 0.9em;
             max-height: 200px;
             overflow: auto;
         }
         textarea {
             font-size: 0.9em;
-            height: 100px;
-            margin-top: 0.5em;
-            max-width: 96%;
-            padding: 1% 1.4%;
-            width: 100%;
+            margin-top: 1em;
         }
+        form p { text-align: right; }
         button {
-            padding: 10px;
+        }
+        table td:first-child {
+            border-right: 1px solid #CBCBCB;
         }
     </style>
 </head>
 <body>
-    <h1>JSON Tagger Documentation</h1>
-    <p>JSON Tagger adds a JSON API on top of <a href="http://www.ling.su.se/english/nlp/tools/stagger">Stagger</a>, the part-of-speech tagger developed by Robert Östling from Stockholm University.</p>
-    <h2>Basic usage</h2>
-    <pre><code class="bash">curl {{ site }}/api/tag -d "Den skogsbrand som rasade i Västmanland"</code></pre>
-    <h2>Response</h2>
+    <h1>Automatic part-of-speech tagging for&nbsp;Swedish via JSON</h1>
+    <p><a href="http://www.ling.su.se/english/nlp/tools/stagger">Stagger</a> finds detailed <strong>Part-of-speech tags</strong> (Noun, Verb, ...) and <strong>Named-entities</strong> (Person, Location, Institution) from <strong>Swedish sentences</strong>. This API makes Stagger available via a JSON API.</p>
+
+    <h2>Type a Swedish sentence:</h2>
+    <form action="/api/tag" method="post" class="pure-form">
+        <textarea id="data" name="data" class="pure-input-1" rows="4">Den skogsbrand som rasade i Västmanland lät sig endast med svårighet kuvas. Det var en katastrof som förstörde hus och hem och utplånade stora ekonomiska värden. Räddningstjänsten, försvaret, ortsbefolkningen och många frivilliga gjorde en beundransvärd insats för att begränsa och till sist också kontrollera elden.</textarea>
+        <input type="hidden" name="pretty" value="1">
+        <p><button type="submit" class="pure-button pure-button-primary">Try the API &raquo;</button></p>
+    </form>
+
+    <h2>Learn more about the API:</h2>
+    <ul class="navigation">
+        <li><a href="#basics" class="pure-button pure-button-primary">Basic usage</a></li>
+        <li><a href="#response" class="pure-button pure-button-primary">Response</a></li>
+        <li><a href="#details" class="pure-button pure-button-primary">Pros and Cons</a></li>
+        <li><a href="#pos-tags" class="pure-button pure-button-primary">POS Tags</a></li>
+        <li><a href="#authors" class="pure-button pure-button-primary">Authors</a></li>
+    </ul>
+
+    <h2 id="basics">Basic usage</h2>
+    <pre><code class="bash">curl {{ site }}/api/tag -d "Fördomen har har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
+
+    <h2 id="response">Response from the API</h2>
     <pre><code class="json">{
     "sentences": [
         [
             {
                 "word_index": "1",
-                "word_form": "Den",
-                "lemma": "den",
-                "pos_tag": "DT",
-                "morph_feat": "UTR|SIN|DEF",
+                "word_form": "Fördomen",
+                "lemma": "fördom",
+                "pos_tag": "NN",
+                "morph_feat": "UTR|SIN|DEF|NOM",
                 "token_id": "net:0:0"
             },
             {
                 "word_index": "2",
-                "word_form": "skogsbrand",
-                "lemma": "skogsbrand",
-                "pos_tag": "NN",
-                "morph_feat": "UTR|SIN|IND|NOM",
-                "token_id": "net:0:4"
+                "word_form": "har",
+                "lemma": "ha",
+                "pos_tag": "VB",
+                "morph_feat": "PRS|AKT",
+                "token_id": "net:0:9"
             },
             {
                 "word_index": "3",
-                "word_form": "som",
-                "lemma": "som",
-                "pos_tag": "HP",
-                "morph_feat": "-|-|-",
-                "token_id": "net:0:15"
+                "word_form": "har",
+                "lemma": "ha",
+                "pos_tag": "VB",
+                "morph_feat": "PRS|AKT",
+                "token_id": "net:0:13"
             },
             {
                 "word_index": "4",
-                "word_form": "rasade",
-                "lemma": "rasa",
-                "pos_tag": "VB",
-                "morph_feat": "PRT|AKT",
-                "token_id": "net:0:19"
+                "word_form": "alltid",
+                "lemma": "alltid",
+                "pos_tag": "AB",
+                "morph_feat": null,
+                "token_id": "net:0:17"
             },
             {
                 "word_index": "5",
+                "word_form": "sin",
+                "lemma": "sin",
+                "pos_tag": "PS",
+                "morph_feat": "UTR|SIN|DEF",
+                "token_id": "net:0:24"
+            },
+            {
+                "word_index": "6",
+                "word_form": "rot",
+                "lemma": "rot",
+                "pos_tag": "NN",
+                "morph_feat": "UTR|SIN|IND|NOM",
+                "token_id": "net:0:28"
+            },
+            {
+                "word_index": "7",
                 "word_form": "i",
                 "lemma": "i",
                 "pos_tag": "PP",
                 "morph_feat": null,
-                "token_id": "net:0:26"
+                "token_id": "net:0:32"
             },
             {
-                "word_index": "6",
-                "word_form": "Västmanland",
-                "lemma": "Västmanland",
+                "word_index": "8",
+                "word_form": "vardagslivet",
+                "lemma": "vardagsliv",
+                "pos_tag": "NN",
+                "morph_feat": "NEU|SIN|DEF|NOM",
+                "token_id": "net:0:34"
+            },
+            {
+                "word_index": "9",
+                "word_form": "-",
+                "lemma": "-",
+                "pos_tag": "MID",
+                "morph_feat": null,
+                "token_id": "net:0:47"
+            },
+            {
+                "word_index": "10",
+                "word_form": "Olof",
+                "lemma": "Olof",
                 "pos_tag": "PM",
                 "morph_feat": "NOM",
-                "token_id": "net:0:28"
+                "token_id": "net:0:49"
+            },
+            {
+                "word_index": "11",
+                "word_form": "Palme",
+                "lemma": "Palme",
+                "pos_tag": "PM",
+                "morph_feat": "NOM",
+                "token_id": "net:0:54"
             }
         ]
     ],
     "entities": [
         {
-            "word_form": "Västmanland",
-            "lemma": "Västmanland",
-            "ne_type": "inst",
+            "word_form": "Olof Palme",
+            "lemma": "Olof Palme",
+            "ne_type": "person",
             "token_ids": [
-                "net:0:28"
+                "net:0:49",
+                "net:0:54"
             ]
         }
     ]
 }</code></pre>
-    <h2>Try the API with your own sentences</h2>
-    <form action="/api/tag" method="post">
-        <textarea id="data" name="data">Den skogsbrand som rasade i Västmanland lät sig endast med svårighet kuvas. Det var en katastrof som förstörde hus och hem och utplånade stora ekonomiska värden. Räddningstjänsten, försvaret, ortsbefolkningen och många frivilliga gjorde en beundransvärd insats för att begränsa och till sist också kontrollera elden.</textarea>
-        <p><button type="submit">POST</button></p>
-    </form>
+
+    <h2 id="details">Pros and Cons</h2>
+    <p><a href="http://www.ling.su.se/english/nlp/tools/stagger">Stagger</a> does a lot of work for you:</p>
+    <ul class="long">
+        <li><strong>Tokenization</strong> - Split your text into words, handling tricky cases like abbreviations.</li>
+        <li><strong>Sentence splitting</strong> - Split your tokens into sentences, handling periods in strange places.</li>
+        <li><strong>Lemmatisation</strong> - Find the base form for each word. Very useful for things like search indexing.</li>
+        <li><strong>Part-of-speech tagging</strong> - Find what category a specific word belongs to, including specifics like singular/plural and passive/active forms.</li>
+        <li><strong>Named-entity Recognition</strong> - Based on the POS tags, find which words are actually people, places, and institutions.</li>
+    </ul>
+
+    <p>JSON Tagger (this project) makes Stagger easier to use:</p>
+    <ul class="long">
+        <li><strong>Adds a JSON API</strong>. No need to parse tab separated strings on stdout.</li>
+        <li><strong>No need to run and deploy Java yourself</strong>. JSON Tagger is hosted, so you don't need to setup anything yourself.</li>
+        <li><strong>Separates tags from entites</strong>, to make them easier to use separately. Also merges multi-token entities to make them even easier to parse.</li>
+    </ul>
+
+    <p>General things to keep in mind:</p>
+    <ul class="long">
+        <li>The Swedish language model that comes with Stagger is trained on editorial text. This means parsing editorial content (news articles, product descriptions, ...) with the highest accuracy. If you need to parse social content, you need to train your own model and run Stagger yourself.</li>
+        <li>The Part-of-speech tagger is very accurate (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96.6%</a>).</li>
+        <li>The Named-entity Recognition engine isn't as accurate (<a href="http://www.ling.su.se/english/nlp/tools/stagger">70.7%</a>). The lower accuracy is because NER is a much harder problem. 70-80% is the industry standard.</li>
+    </ul>
+
+    <h2 id="pos-tags">Understand the Part-of-speech tags</h2>
+    <p>The two letter codes in the <code>pos_tag</code> field corresponds to coarse word categories. The tags used comes from the <a href="http://spraakbanken.gu.se/parole/Docs/SUC2.0-manual.pdf">SUC Tagset</a>.</p>
+
+    <table class="pure-table pure-table-striped">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Swedish category</th>
+                <th>Example</th>
+                <th>English translation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>AB</td>
+                <td>Adverb</td>
+                <td>inte</td>
+                <td>Adverb</td>
+            </tr>
+            <tr>
+                <td>DT</td>
+                <td>Determinerare</td>
+                <td>denna</td>
+                <td>Determiner</td>
+            </tr>
+            <tr>
+                <td>HA</td>
+                <td>Frågande/relativt adverb</td>
+                <td>när</td>
+                <td>Interrogative/Relative Adverb</td>
+            </tr>
+            <tr>
+                <td>HD</td>
+                <td>Frågande/relativ determinerare</td>
+                <td>vilken</td>
+                <td>Interrogative/Relative Determiner</td>
+            </tr>
+            <tr>
+                <td>HP</td>
+                <td>Frågande/relativt pronomen</td>
+                <td>som</td>
+                <td>Interrogative/Relative Pronoun</td>
+            </tr>
+            <tr>
+                <td>HS</td>
+                <td>Frågande/relativt possessivt pronomen</td>
+                <td>vars</td>
+                <td>Interrogative/Relative Possessive</td>
+            </tr>
+            <tr>
+                <td>IE</td>
+                <td>Infinitivmärke</td>
+                <td>att</td>
+                <td>Infinitive Marker</td>
+            </tr>
+            <tr>
+                <td>IN</td>
+                <td>Interjektion</td>
+                <td>ja</td>
+                <td>Interjection</td>
+            </tr>
+            <tr>
+                <td>JJ</td>
+                <td>Adjektiv</td>
+                <td>glad</td>
+                <td>Adjective</td>
+            </tr>
+            <tr>
+                <td>KN</td>
+                <td>Konjunktion</td>
+                <td>och</td>
+                <td>Conjunction</td>
+            </tr>
+            <tr>
+                <td>NN</td>
+                <td>Substantiv</td>
+                <td>pudding</td>
+                <td>Noun</td>
+            </tr>
+            <tr>
+                <td>PC</td>
+                <td>Particip</td>
+                <td>utsänd</td>
+                <td>Participle</td>
+            </tr>
+            <tr>
+                <td>PL</td>
+                <td>Partikel</td>
+                <td>ut</td>
+                <td>Particle</td>
+            </tr>
+            <tr>
+                <td>PM</td>
+                <td>Egennamn</td>
+                <td>Mats</td>
+                <td>Proper Noun</td>
+            </tr>
+            <tr>
+                <td>PN</td>
+                <td>Pronomen</td>
+                <td>hon</td>
+                <td>Pronoun</td>
+            </tr>
+            <tr>
+                <td>PP</td>
+                <td>Preposition</td>
+                <td>av</td>
+                <td>Preposition</td>
+            </tr>
+            <tr>
+                <td>PS</td>
+                <td>Possessivt pronomen</td>
+                <td>hennes</td>
+                <td>Possessive</td>
+            </tr>
+            <tr>
+                <td>RG</td>
+                <td>Grundtal</td>
+                <td>tre</td>
+                <td>Cardinal number</td>
+            </tr>
+            <tr>
+                <td>RO</td>
+                <td>Ordningstal</td>
+                <td>tredje</td>
+                <td>Ordinal number</td>
+            </tr>
+            <tr>
+                <td>SN</td>
+                <td>Subjunktion</td>
+                <td>att</td>
+                <td>Subjunction</td>
+            </tr>
+            <tr>
+                <td>UO</td>
+                <td>Utländskt ord</td>
+                <td>the</td>
+                <td>Foreign Word</td>
+            </tr>
+            <tr>
+                <td>VB</td>
+                <td>Verb</td>
+                <td>kasta</td>
+                <td>Verb</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Some tags have more specific features specified in the <code>morph_feat</code> field.</p>
+
+    <table class="pure-table pure-table-bordered">
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Tag</th>
+                <th>Legend</th>
+                <th>Applies to</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pure-table-odd">
+                <td rowspan="3"><strong>Gender</strong></td>
+                <td>UTR</td>
+                <td>Uter (common)</td>
+                <td rowspan="3">DT, HD, HP, JJ, NN, PC, PN, PS, (RG, RO)</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>NEU</td>
+                <td>Neuter</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>MAS</td>
+                <td>Masculine</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2"><strong>Number</strong></td>
+                <td>SIN</td>
+                <td>Singular</td>
+                <td rowspan="2">DT, HD, HP, JJ, NN, PC, PN, PS, (RG, RO)</td>
+            </tr>
+            <tr>
+                <td>PLU</td>
+                <td>Plural</td>
+            </tr>
+
+            <tr class="pure-table-odd">
+                <td rowspan="2"><strong>Definiteness</strong></td>
+                <td>IND</td>
+                <td>Indefinite</td>
+                <td rowspan="2">DT, (HD, HP, HS), JJ, NN, PC, PN, (PS, RG, RO)</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>DEF</td>
+                <td>Definite</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2"><strong>Case</strong></td>
+                <td>NOM</td>
+                <td>Nominative</td>
+                <td rowspan="2">JJ, NN, PC, PM, (RG, RO)</td>
+            </tr>
+            <tr>
+                <td>GEN</td>
+                <td>Genitive</td>
+            </tr>
+
+            <tr class="pure-table-odd">
+                <td rowspan="4"><strong>Tense</strong></td>
+                <td>PRS</td>
+                <td>Present</td>
+                <td rowspan="4">VB</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>PRT</td>
+                <td>Preterite</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>SUP</td>
+                <td>Supinum</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>INF</td>
+                <td>Infinite</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2"><strong>Voice</strong></td>
+                <td>AKT</td>
+                <td>Active</td>
+                <td rowspan="2">VB</td>
+            </tr>
+            <tr>
+                <td>SFO</td>
+                <td>S-form (passive or deponential)</td>
+            </tr>
+
+            <tr class="pure-table-odd">
+                <td><strong>Mood</strong></td>
+                <td>KON</td>
+                <td>Subjunctive (Sw. konjunktiv)</td>
+                <td>VB</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2"><strong>Participle form</strong></td>
+                <td>PRS</td>
+                <td>Present</td>
+                <td rowspan="2">PC</td>
+            </tr>
+            <tr>
+                <td>PRF</td>
+                <td>Perfect</td>
+            </tr>
+
+            <tr class="pure-table-odd">
+                <td rowspan="3"><strong>Degree</strong></td>
+                <td>POS</td>
+                <td>Positive</td>
+                <td rowspan="3">(AB), JJ</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>KOM</td>
+                <td>Comparative</td>
+            </tr>
+            <tr class="pure-table-odd">
+                <td>SUV</td>
+                <td>Superlative</td>
+            </tr>
+
+            <tr>
+                <td rowspan="3"><strong>Pronoun form</strong></td>
+                <td>SUB</td>
+                <td>Subject form</td>
+                <td rowspan="2">PN</td>
+            </tr>
+            <tr>
+                <td>OBJ</td>
+                <td>Object form</td>
+            </tr>
+            <tr>
+                <td>SMS</td>
+                <td>Compound (Sw.sammansättningsform)</td>
+                <td>All parts-of-speech</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="authors">Authors</h2>
+    <p>Stagger was created by Robert&nbsp;Östling, JSON Tagger was created by Emil&nbsp;Stenström.</p>
+
     <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
