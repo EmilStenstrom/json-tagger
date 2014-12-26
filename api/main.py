@@ -1,12 +1,17 @@
 from collections import OrderedDict
 from server import prepare_data, query_server
 from parser import parse_response
-from bottle import route, request, run, view
+from bottle import route, request, run, view, JSONPlugin, json_dumps as dumps
+from functools import partial
 
 import bottle
 bottle.TEMPLATE_PATH = ["api/views/"]
 bottle.debug(True)
 bottle.TEMPLATES.clear()
+
+better_dumps = partial(dumps, separators=(',', ':'))
+bottle.default_app().uninstall(JSONPlugin)
+bottle.default_app().install(JSONPlugin(better_dumps))
 
 @route('/api/')
 @view('index')
