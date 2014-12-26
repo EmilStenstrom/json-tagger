@@ -1,13 +1,12 @@
-rest-tagger
+REST Tagger
 ===========
 
 A REST API to tag a Swedish sentence with part of speech tags and named entities.
 
 Documentation
-=============
+-------------
 
-What does the value in the `pos_tag` field mean?
-------------------------------------------------
+### What does the value in the `pos_tag` field mean?
 
 | Code | Swedish category                         | Example | English translation
 | ---- | ---------------------------------------- | ------- | -------------------
@@ -34,8 +33,7 @@ What does the value in the `pos_tag` field mean?
 | UO   | Utländskt ord                            | the     | Foreign Word
 | VB   | Verb                                     | kasta   | Verb
 
-What about the `morph_feat` field?
-----------------------------------
+### What about the `morph_feat` field?
 
 | Feature         | Tag | Legend                            | Parts-of-speech where feature applies
 | --------------- | --- | --------------------------------- | -------------------------------------
