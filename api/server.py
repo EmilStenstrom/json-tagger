@@ -6,6 +6,8 @@ def prepare_data(data):
     return header + data
 
 def query_server(data):
+    data = prepare_data(data)
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("127.0.0.1", 9000))
     s.sendall(data)
