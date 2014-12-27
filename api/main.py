@@ -6,13 +6,13 @@ import bottle
 import json
 import os
 
-@route('/api/')
+@route('/')
 @view('api/views/index')
 def index():
     site = "%s://%s" % (request.urlparts.scheme, request.urlparts.netloc)
     return {"site": site}
 
-@route('/api/tag', method=["get", "post"])
+@route('/tag', method=["get", "post"])
 def tag():
     # Support posting data both via forms and via POST body
     data = request.POST.get("data", request.body.getvalue())
