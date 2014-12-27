@@ -1,1 +1,1 @@
-web: fab runapi
+web: python api/main.py
