@@ -1,10 +1,8 @@
-from bottle import route, request, response, run, view
+from bottle import route, request, response, view
 from collections import OrderedDict
-from parser import parse_response
-from server import query_server
-import bottle
+from api.parser import parse_response
+from api.server import query_server
 import json
-import os
 
 @route('/')
 @view('api/views/index')
@@ -34,17 +32,3 @@ def tag():
         ("sentences", sentences),
         ("entities", entities),
     ]), **json_kwargs)
-
-if __name__ == "__main__":
-    environment = os.environ.get("ENVIRONMENT", None)
-    assert environment, "Needs $ENVIRONMENT variable set"
-    if environment == "development":
-        print "RUNNING IN DEVELOPMENT MODE"
-        bottle.debug(True)
-        bottle.TEMPLATES.clear()
-        run(host='localhost', port=8000, reloader=True)
-    elif environment == "production":
-        print "RUNNING IN PRODUCTION MODE"
-        run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-    else:
-        assert False, "That's not a valid $ENVIRONMENT"
