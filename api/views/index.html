@@ -93,19 +93,19 @@
         <li><strong>Tokenisering av meningar</strong> - Gruppera orden i meningar</li>
         <li><strong>Lemmatisering</strong> - Hitta grundformen för varje ord</li>
         <li><strong>Ordklasstagging</strong> - Hitta varje ords ordklass, inklusive specifika egenskaper som singular/plural och passiva/aktiva former</li>
-        <li><strong>Namnigenkänning</strong> - Hitta personnamn, platser och instutitioner</li>
+        <li><strong>Namnigenkänning</strong> - Hitta personnamn, platser och institutioner</li>
     </ul>
 
     <p>JSON Tagger (detta projekt) gör Stagger lättare att använda:</p>
     <ul class="long">
-        <li><strong>All data tillgänglig via JSON</strong>. Stagger kräver att man parsar data i <a href="http://ilk.uvt.nl/conll/#dataformat">CoNLL-format</a>, något som många inte känner till. JSON är betydligt vanligare, och passar bra för data i webbmiljö.</li>
+        <li><strong>Gör all data tillgänglig via JSON</strong>. Stagger kräver att man parsar data i <a href="http://ilk.uvt.nl/conll/#dataformat">CoNLL-format</a>, något som många inte känner till. JSON är betydligt vanligare, och passar bra för data i webbmiljö.</li>
         <li><strong>Slipp köra och underhålla en Java-miljö</strong>. JSON Tagger kör i molnet, så du behöver inte installera något själv.</li>
         <li><strong>Skiljer på ordklass och egennamn-delarna</strong>. Staggar blandar ihop data om ordklass och egennamn, JSON Tagger gör det enkelt att bara använda en den ena delen om du inte behöver båda.</li>
     </ul>
 
     <p>Att tänka på:</p>
     <ul class="long">
-        <li>Ordklasstaggningen har väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>). Namnigenkänningen har lägre precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">70,7%</a>), eftersom kategorieringen av namnen (t.ex. plats vs. person) är svårt. Ta med detta i beräkningen när du bygger applikationer baserat på API:et.</li>
+        <li>Ordklasstaggningen har väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>). Namnigenkänningen har lägre precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">70,7%</a>), eftersom kategoriseringen av namnen (t.ex. plats vs. person) är svårt. Ta med detta i beräkningen när du bygger applikationer baserat på API:et.</li>
         <li>Språkmodellen som kommer med Stagger är <strong>baserad på redaktionell text</strong>. Därför fungerar det bäst för nyhetsartiklar, produktbeskrivningar och liknande. Om du vill använda det för text från sociala medier behöver du använda en annan språkmodell. Den som används här kommer ge för dåligt resultat.
     </ul>
 
@@ -274,7 +274,7 @@ request.post({url: '{{ site }}/api/tag', body: "Fördomen har har alltid sin rot
             </dl>
         </dd>
 
-        <dt><code>entites</code></dt>
+        <dt><code>entities</code></dt>
         <dd>
             En lista med egennamn som har identifierats i texten. Varje namn har följande egenskaper:
             <dl>
@@ -283,7 +283,7 @@ request.post({url: '{{ site }}/api/tag', body: "Fördomen har har alltid sin rot
                 <em>Exempel: "Olof Palmes"</em></dd>
 
                 <dt><code>lemma</code></dt>
-                <dd>Sammanslagningen av ett eller flera grundformer för de ord som ingår i detta namn. Vanligtvis samma ord fast utan genetiv-"s".<br>
+                <dd>Sammanslagningen av ett eller flera grundformer för de ord som ingår i detta namn. Vanligtvis samma ord fast utan genitiv-"s".<br>
                 <em>Exempel: "Olof Palme"</em></dd>
 
                 <dt><code>ne_type</code></dt>
@@ -331,14 +331,14 @@ request.post({url: '{{ site }}/api/tag', body: "Fördomen har har alltid sin rot
             <tr><td>SN</td><td>Subjunktion</td><td>att</td></tr>
             <tr><td>UO</td><td>Utländskt ord</td><td>the</td></tr>
             <tr><td>VB</td><td>Verb</td><td>kasta</td></tr>
-            <tr><td>MAD</td><td>Major delimiter</td><td>. (punkt)</td></tr>
-            <tr><td>MID</td><td>Minor delimiter</td><td>, (komma)</td></tr>
-            <tr><td>PAD</td><td>Pairwise delimiter</td><td>- (streck)</td></tr>
+            <tr><td>MAD</td><td>Meningsavslutare</td><td>. (punkt)</td></tr>
+            <tr><td>MID</td><td>Meningsdelare</td><td>, (komma)</td></tr>
+            <tr><td>PAD</td><td>Parvis skiljetecken</td><td>- (streck)</td></tr>
         </tbody>
     </table>
 
     <h2 id="morph-feat">Förklaring av de mer specifika taggarna</h2>
-    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även speicika böjningsformer i <code>morph_feat</code>. Notera att femininum inte finns med bland genusformerna efter det inte påverkar böjningen.</p>
+    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även speicika böjningsformer i <code>morph_feat</code>. Notera att femininum inte finns med bland genusformerna eftersom det inte påverkar böjningen.</p>
 
     <table class="pure-table pure-table-bordered">
         <thead>
@@ -475,7 +475,14 @@ request.post({url: '{{ site }}/api/tag', body: "Fördomen har har alltid sin rot
             <tr class="pure-table-odd">
                 <td><strong>Sammansatt</strong></td>
                 <td>SMS</td>
-                <td>Sammansättningsform</td>
+                <td>Sammansatt</td>
+                <td>Alla ordklasser</td>
+            </tr>
+
+            <tr>
+                <td><strong>Förkortning</strong></td>
+                <td>AN</td>
+                <td>Förkortning</td>
                 <td>Alla ordklasser</td>
             </tr>
         </tbody>
