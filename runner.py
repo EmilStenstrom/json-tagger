@@ -1,6 +1,6 @@
 from bottle import run
 # One way to split a Bottle app into several files
-from api.main import index, tag  # NOQA
+from api.main import *  # NOQA
 import bottle
 import os
 
