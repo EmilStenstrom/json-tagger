@@ -1,7 +1,5 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-/models/
-/stagger/
 json-tagger.sublime-project
 json-tagger.sublime-workspace
