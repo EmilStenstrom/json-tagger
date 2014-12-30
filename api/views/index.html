@@ -104,7 +104,7 @@
 
     <p>Att tänka på:</p>
     <ul class="long">
-        <li>Ordklasstaggningen har väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>). Namnigenkänning är betydlig svårare, därför är precisionen lägre (<a href="http://www.ling.su.se/english/nlp/tools/stagger">70,7%</a>). Ta med detta i beräkningen när du bygger applikationer baserat på API:et.</li>
+        <li>Ordklasstaggningen har väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>). Namnigenkänningen har lägre precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">70,7%</a>), eftersom kategorieringen av namnen (t.ex. plats vs. person) är svårt. Ta med detta i beräkningen när du bygger applikationer baserat på API:et.</li>
         <li>Språkmodellen som kommer med Stagger är <strong>baserad på redaktionell text</strong>. Därför fungerar det bäst för nyhetsartiklar, produktbeskrivningar och liknande. Om du vill använda det för text från sociala medier behöver du använda en annan språkmodell. Den som används här kommer ge för dåligt resultat.
     </ul>
 
