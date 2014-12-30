@@ -1,7 +1,7 @@
 from bottle import route, request, response, run, view
 from collections import OrderedDict
-from .parser import parse_response
-from .server import query_server
+from parser import parse_response
+from server import query_server
 import bottle
 import json
 import os
