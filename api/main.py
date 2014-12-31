@@ -4,6 +4,9 @@ from api.parser import parse_response
 from api.server import query_server
 import json
 
+STAGGER_ADDRESS = "mumin.ling.su.se"
+STAGGER_PORT = 46502
+
 @route('/')
 @view('api/views/index')
 def index():
@@ -18,7 +21,7 @@ def tag():
     if not data:
         return {"error": "No data posted"}
 
-    raw_text = query_server(data)
+    raw_text = query_server(data, STAGGER_ADDRESS, STAGGER_PORT)
     sentences, entities = parse_response(raw_text)
 
     response.content_type = "application/json"

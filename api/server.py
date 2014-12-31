@@ -5,11 +5,11 @@ def prepare_data(data):
     header = struct.pack('>i', len(data))
     return header + data
 
-def query_server(data):
+def query_server(data, stagger_address="127.0.0.1", stagger_port=9000):
     data = prepare_data(data)
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("127.0.0.1", 9000))
+    s.connect((stagger_address, stagger_port))
     s.sendall(data)
 
     chunks = []
