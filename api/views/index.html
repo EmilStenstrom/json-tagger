@@ -120,11 +120,11 @@
     <p>API:et kräver att du skickar en POST-request över HTTP. Det går att göra i alla plattformar och programmeringsspråk, men här är några av de vanligaste:</p>
 
     <h3>cURL (finns förinstallerat på alla Mac och Linux-datorer)</h3>
-    <pre><code class="bash">curl {{ site }}/api/tag -d "Fördomen har har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
+    <pre><code class="bash">curl {{ site }}/tag -d "Fördomen har har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
 
     <h3>Python (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
     <pre><code class="python">import requests
-r = requests.post("{{ site }}/api/tag", data="Fördomen har har alltid sin rot i vardagslivet - Olof Palme")
+r = requests.post("{{ site }}/tag", data="Fördomen har har alltid sin rot i vardagslivet - Olof Palme")
 print r.json()</code></pre>
 
     <h3>Ruby (med hjälp av <a href="https://github.com/tarcieri/http.rb">http.rb</a>)</h3>
@@ -134,7 +134,7 @@ puts r.to_s</code></pre>
 
     <h3>Node.js (med hjälp av <a href="https://github.com/request/request">request</a>)</h3>
     <pre><code class="javascript">var request = require('request');
-request.post({url: '{{ site }}/api/tag', body: "Fördomen har har alltid sin rot i vardagslivet - Olof Palme"}, function (error, response, body) {
+request.post({url: '{{ site }}/tag', body: "Fördomen har har alltid sin rot i vardagslivet - Olof Palme"}, function (error, response, body) {
     console.log(body)
 })</code></pre>
 
