@@ -3,3 +3,6 @@ __pycache__/
 *.py[cod]
 json-tagger.sublime-project
 json-tagger.sublime-workspace
+efselab/build
+efselab/suc.so
+efselab/fasthash.so
