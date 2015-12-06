@@ -3,9 +3,12 @@ from collections import OrderedDict
 from itertools import groupby
 
 from bottle import route, request, response, view
+from nltk import data
 from nltk.tokenize import word_tokenize, sent_tokenize
 
 from efselab import suc as tagger
+
+data.path.append('../nltk_data')
 
 @route('/')
 @view('api/views/index')
