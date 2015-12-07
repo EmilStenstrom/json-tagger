@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>JSON Tagger - JSON API for Stagger</title>
+    <title>JSON Tagger - JSON API for efselab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
@@ -87,33 +87,37 @@
     </ul>
 
     <h2 id="details">Om API:et</h2>
-    <p>API:et bygger på <a href="http://www.ling.su.se/english/nlp/tools/stagger">Stagger</a>, ett projekt vid Stockholms Universitet. Stagger gör allt grovarbete:</p>
+    <p>API:et bygger på <a href="https://github.com/robertostling/efselab">efselab</a>, ett projekt vid Stockholms Universitet. Efselab gör allt grovarbete:</p>
     <ul class="long">
-        <li><strong>Tokenisering av ord</strong> - Dela upp meningar i ord</li>
-        <li><strong>Tokenisering av meningar</strong> - Gruppera orden i meningar</li>
-        <li><strong>Lemmatisering</strong> - Hitta grundformen för varje ord</li>
         <li><strong>Ordklasstaggning</strong> - Hitta varje ords ordklass, inklusive specifika egenskaper som singular/plural och passiva/aktiva former</li>
-        <li><strong>Namnigenkänning</strong> - Hitta personnamn, platser och institutioner</li>
+        <li><strong>... på nolltid</strong> - Även stora datamängder på kort tid</li>
+        <li><strong>... utan att använda så mycket minne</strong> - Vilket gör att jag kan köra allt på en billig server</li>
     </ul>
 
-    <p>JSON Tagger (detta projekt) gör Stagger lättare att använda:</p>
+    <p>JSON Tagger (detta projekt) gör efselab lägger till:</p>
     <ul class="long">
-        <li><strong>Gör all data tillgänglig via JSON</strong>. Stagger kräver att man parsar data i <a href="http://ilk.uvt.nl/conll/#dataformat">CoNLL-format</a>, något som många inte känner till. JSON är betydligt vanligare, och passar bra för data i webbmiljö.</li>
-        <li><strong>Slipp köra och underhålla en Java-miljö</strong>. JSON Tagger kör i molnet, så du behöver inte installera något själv.</li>
-        <li><strong>Skiljer på ordklass och egennamn-delarna</strong>. Staggar blandar ihop data om ordklass och egennamn, JSON Tagger gör det enkelt att bara använda en den ena delen om du inte behöver båda.</li>
-        <li><strong>Dokumenterar</strong> vad taggarna som Stagger returnerar betyder (se nedan).</li>
+        <li><strong>Tokenisering av meningar</strong> - Gruppera orden i meningar</li>
+        <li><strong>Tokenisering av ord</strong> - Dela upp meningar i ord</li>
+        <li><strong>Gör all data tillgänglig via JSON</strong>. Efselab kräver att installerar C-program och tränar upp en datamodell, något som många inte kan göra själv. JSON förstår sig betydligt fler på, och det passar dessutom bra för data i webbmiljö.</li>
+        <li><strong>Visar egennamn separat</strong>. Egennamnen är en av taggarna som efselab svarar med, JSON tagger slår ihop och paketerar dem på ett sätt som gör dem enkla att använda separat.</li>
+        <li><strong>Dokumenterar</strong> vad taggarna som efselab returnerar betyder (se nedan).</li>
     </ul>
 
     <p>Att tänka på:</p>
     <ul class="long">
-        <li>Ordklasstaggningen har väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>). Namnigenkänningen har lägre precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">70,7%</a>), eftersom kategoriseringen av namnen (t.ex. plats vs. person) är svårt. Ta med detta i beräkningen när du bygger applikationer baserat på API:et.</li>
-        <li>Språkmodellen som kommer med Stagger är <strong>baserad på redaktionell text</strong>. Därför fungerar det bäst för nyhetsartiklar, produktbeskrivningar och liknande. Om du vill använda det för text från sociala medier behöver du använda en annan språkmodell. Den som används här kommer ge för dåligt resultat.
+        <li>Ordklasstaggningen bygger på samma modell som Stagger gör, och Stagger har dokumenterat väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>).</li>
+        <li>Språkmodellen som efselab är tränad på heter SUC, <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>, och är främst <strong>baserad på redaktionell text</strong>. Därför fungerar det bäst för nyhetsartiklar, produktbeskrivningar och liknande. Om du vill använda det för text från sociala medier behöver du använda en annan språkmodell. Den som används här kommer att ge för dåligt resultat.
     </ul>
 
     <p>Vem ligger bakom detta?</p>
     <ul>
-        <li><a href="http://www.ling.su.se/english/nlp/tools/stagger">Stagger</a> skapades av <a href="http://www.ling.su.se/om-oss/kontakt/presentationer-medarbetare/m-%C3%B6/robert-%C3%B6stling-1.14962">Robert Östling</a>.</li>
+        <li><a href="https://github.com/robertostling/efselab">efselab</a> skapades av <a href="http://www.ling.su.se/om-oss/kontakt/presentationer-medarbetare/m-%C3%B6/robert-%C3%B6stling-1.14962">Robert Östling</a>.</li>
         <li>JSON Tagger (detta projekt) skapades av <a href="http://twitter.com/EmilStenstrom">Emil Stenström</a>.</li>
+    </ul>
+
+    <p>Vill du använda API:et?</p>
+    <ul>
+        <li>Då är det fritt fram! Du behöver inte fråga om lov först, men du får gärna skicka ett meddelande till <a href="http://twitter.com/EmilStenstrom">mig på Twitter</a> och berätta vad du använt det till!</li>
     </ul>
 
     <h2 id="basics">Göra anrop</h2>
@@ -147,93 +151,82 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
             {
                 "word_index": "1",
                 "word_form": "Fördomen",
-                "lemma": "fördom",
                 "pos_tag": "NN",
                 "morph_feat": "UTR|SIN|DEF|NOM",
-                "token_id": "net:0:0"
+                "token_id": "tok:0:0"
             },
             {
                 "word_index": "2",
                 "word_form": "har",
-                "lemma": "ha",
                 "pos_tag": "VB",
                 "morph_feat": "PRS|AKT",
-                "token_id": "net:0:9"
+                "token_id": "tok:0:9"
             },
             {
                 "word_index": "3",
                 "word_form": "alltid",
-                "lemma": "alltid",
                 "pos_tag": "AB",
                 "morph_feat": null,
-                "token_id": "net:0:13"
+                "token_id": "tok:0:13"
             },
             {
                 "word_index": "4",
                 "word_form": "sin",
-                "lemma": "sin",
                 "pos_tag": "PS",
                 "morph_feat": "UTR|SIN|DEF",
-                "token_id": "net:0:20"
+                "token_id": "tok:0:20"
             },
             {
                 "word_index": "5",
                 "word_form": "rot",
-                "lemma": "rot",
                 "pos_tag": "NN",
                 "morph_feat": "UTR|SIN|IND|NOM",
-                "token_id": "net:0:24"
+                "token_id": "tok:0:24"
             },
             {
                 "word_index": "6",
                 "word_form": "i",
-                "lemma": "i",
                 "pos_tag": "PP",
                 "morph_feat": null,
-                "token_id": "net:0:28"
+                "token_id": "tok:0:28"
             },
             {
                 "word_index": "7",
                 "word_form": "vardagslivet",
-                "lemma": "vardagsliv",
                 "pos_tag": "NN",
                 "morph_feat": "NEU|SIN|DEF|NOM",
-                "token_id": "net:0:30"
+                "token_id": "tok:0:30"
             },
             {
                 "word_index": "8",
                 "word_form": "-",
-                "lemma": "-",
                 "pos_tag": "MID",
                 "morph_feat": null,
-                "token_id": "net:0:43"
+                "token_id": "tok:0:43"
             },
             {
                 "word_index": "9",
                 "word_form": "Olof",
-                "lemma": "Olof",
                 "pos_tag": "PM",
                 "morph_feat": "NOM",
-                "token_id": "net:0:45"
+                "token_id": "tok:0:45"
             },
             {
                 "word_index": "10",
                 "word_form": "Palme",
-                "lemma": "Palme",
                 "pos_tag": "PM",
                 "morph_feat": "NOM",
-                "token_id": "net:0:50"
+                "token_id": "tok:0:50"
             }
         ]
     ],
     "entities": [
         {
             "word_form": "Olof Palme",
-            "lemma": "Olof Palme",
             "ne_type": "person",
             "token_ids": [
-                "net:0:45",
-                "net:0:50"
+                "tok:0:45",
+                "tok:0:50"
             ]
         }
     ]
@@ -253,10 +246,6 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
                 <dd>Ordet som det skickades in till API:et, oförändrat.<br>
                 <em>Exempel: "Fördomen"</em></dd>
 
-                <dt><code>lemma</code></dt>
-                <dd>Grundformen för detta ord, utan ändelser och böjningar.<br>
-                <em>Exempel: "fördom"</em></dd>
-
                 <dt><code>pos_tag</code></dt>
                 <dd>Ordklassen för detta ord, som förkortningar med två eller tre bokstäver. En förklaring av <a href="#pos-tags">de olika ordklasstaggarna</a> hittar du nedan.<br>
                 <em>Exempel: "NN"</em></dd>
@@ -267,7 +256,7 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
 
                 <dt><code>token_id</code></dt>
                 <dd>Ett ID som beskriver var i originaltexten som detta ord hittades. Börjar alltid med "net", följt av ett kolon och numret på meningen där ordet stod (första meningen är noll), följt av ett kolon och det antal tecken från början där ordet stod (första tecknet är noll).<br>
-                <em>Exempel: "net:0:0"</em></dd>
+                <em>Exempel: "tok:0:0"</em></dd>
             </dl>
         </dd>
 
@@ -276,26 +265,18 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
             En lista med egennamn som har identifierats i texten. Varje namn har följande egenskaper:
             <dl>
                 <dt><code>word_form</code></dt>
-                <dd>Ett eller flera ord, som de skickades in till API:et, oförändrat.<br>
-                <em>Exempel: "Olof Palmes"</em></dd>
-
-                <dt><code>lemma</code></dt>
-                <dd>Sammanslagningen av ett eller flera grundformer för de ord som ingår i detta namn. Vanligtvis samma ord fast utan genitiv-"s".<br>
+                <dd>De egennamn som hittats i texten, där flera efter varandra har slagits ihop till ett ord. Om t.ex. "Han heter Olof Palme" taggats så returneras "Olof" och "Palme" ovan som två olika ord, båda taggade som PM, egennamn. Här slås dessa ihop till ett ord.<br>
                 <em>Exempel: "Olof Palme"</em></dd>
-
-                <dt><code>ne_type</code></dt>
-                <dd>Typen av namn som har hittats. Kan vara antingen "person", "place", "inst". Ibland hittas ett namn helt korrekt i texten, men fel typ returneras. Därför kan det vara bra att komplettera med egna listor med namn, platser och företagsnamn, och kontrollera om namnet finns med i dessa innan man litar på taggen som anges här. Testa med egen data innan du bestämmer dig för om det behövs i detta fall.<br>
-                <em>Exempel: "person"</em></dd>
 
                 <dt><code>token_ids</code></dt>
                 <dd>En lista som de token_ids som ingår i detta namn. Om man vill kombinera egennamn och ordklasstaggning kan man alltså ta ID:n härifrån och slå upp ordklass för de ingående orden ovan.<br>
-                <em>Exempel: ["net:0:49", "net:0:54"]</em></dd>
+                <em>Exempel: ["tok:0:49", "tok:0:54"]</em></dd>
             </dl>
         </dd>
     </dl>
 
     <h2 id="pos-tags">Förklaring av ordklasstaggarna</h2>
-    <p>Förkortningarna i <code>pos_tag</code> motsvarar alltså ordklasser. Ordklasserna (både dessa och de mer specifika nedan) kommer från ett projekt som heter <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>. Över en miljon ord har manuellt taggats, och denna databas har sen använts för att träna Stagger.</p>
+    <p>Förkortningarna i <code>pos_tag</code> motsvarar alltså ordklasser. Ordklasserna (både dessa och de mer specifika nedan) kommer från ett projekt som heter <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>. Över en miljon ord har manuellt taggats, och denna databas har sen använts för att träna efselab.</p>
 
     <table class="pure-table pure-table-striped">
         <thead>
@@ -335,7 +316,7 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
     </table>
 
     <h2 id="morph-feat">Förklaring av de mer specifika taggarna</h2>
-    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även specifika böjningsformer i <code>morph_feat</code>. Notera att femininum inte finns med bland genusformerna eftersom det inte påverkar böjningen.</p>
+    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även specifika böjningsformer i <code>morph_feat</code>. Notera att femininum inte finns med bland genusformerna eftersom det inte påverkar böjningen på svenska.</p>
 
     <table class="pure-table pure-table-bordered">
         <thead>
