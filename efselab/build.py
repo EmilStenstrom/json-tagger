@@ -8,7 +8,7 @@ setup(
             name='fasthash',
             sources=['fasthash.c'],
             libraries=[],
-            extra_compile_args=['-Wall'],
+            extra_compile_args=['-Wall', '-Wno-unused-function'],
             extra_link_args=[]
         )
     ],
