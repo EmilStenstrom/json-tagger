@@ -19,7 +19,7 @@ def index():
 @route('/tag', method=["get", "post"])
 def tag():
     # Support posting data both via forms and via POST body
-    data = request.POST.getunicode("data", str(request.body.getvalue(), "utf-8"))
+    data = request.POST.getunicode("data", str(request.body.getvalue()))
 
     if not data:
         return {"error": "No data posted"}
