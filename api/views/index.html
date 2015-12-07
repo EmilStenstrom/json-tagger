@@ -133,7 +133,7 @@ print r.json()</code></pre>
 
     <h3>Ruby (med hjälp av <a href="https://github.com/tarcieri/http.rb">http.rb</a>)</h3>
     <pre><code class="ruby">require 'http'
-r = HTTP.post("http://example.com/resource", :body => "Fördomen har alltid sin rot i vardagslivet - Olof Palme")
+r = HTTP.post("{{ site }}/tag", :body => "Fördomen har alltid sin rot i vardagslivet - Olof Palme")
 puts r.to_s</code></pre>
 
     <h3>Node.js (med hjälp av <a href="https://github.com/request/request">request</a>)</h3>
