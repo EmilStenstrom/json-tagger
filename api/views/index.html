@@ -126,9 +126,15 @@
     <h3>cURL (finns förinstallerat på alla Mac och Linux-datorer)</h3>
     <pre><code class="bash">curl {{ site }}/tag -d "Fördomen har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
 
-    <h3>Python (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
+    <h3>Python 2 (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
+    <pre><code class="python"># -*- coding: utf-8 -*-
+import requests
+r = requests.post("{{ site }}/tag", data=u"Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
+print r.json()</code></pre>
+
+    <h3>Python 3 (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
     <pre><code class="python">import requests
-r = requests.post("{{ site }}/tag", data="Fördomen har alltid sin rot i vardagslivet - Olof Palme")
+r = requests.post("{{ site }}/tag", data="Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
 print r.json()</code></pre>
 
     <h3>Ruby (med hjälp av <a href="https://github.com/tarcieri/http.rb">http.rb</a>)</h3>
