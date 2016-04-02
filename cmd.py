@@ -8,6 +8,6 @@ args = parser.parse_args()
 if not any(vars(args).values()):
     parser.print_help()
 elif args.run:
-    os.system("ENVIRONMENT=development python runner.py")
+    os.system("ENVIRONMENT=development python server.py")
 elif args.deploy:
     os.system("git push heroku master")
