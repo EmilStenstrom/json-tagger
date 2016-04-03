@@ -157,6 +157,7 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
             {
                 "word_index": "1",
                 "word_form": "Fördomen",
+                "lemma": "fördom",
                 "pos_tag": "NN",
                 "morph_feat": "UTR|SIN|DEF|NOM",
                 "token_id": "tok:0:0"
@@ -164,75 +165,83 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
             {
                 "word_index": "2",
                 "word_form": "har",
+                "lemma": "ha",
                 "pos_tag": "VB",
                 "morph_feat": "PRS|AKT",
-                "token_id": "tok:0:9"
+                "token_id": "tok:0:1"
             },
             {
                 "word_index": "3",
                 "word_form": "alltid",
+                "lemma": "alltid",
                 "pos_tag": "AB",
                 "morph_feat": null,
-                "token_id": "tok:0:13"
+                "token_id": "tok:0:2"
             },
             {
                 "word_index": "4",
                 "word_form": "sin",
+                "lemma": "sin",
                 "pos_tag": "PS",
                 "morph_feat": "UTR|SIN|DEF",
-                "token_id": "tok:0:20"
+                "token_id": "tok:0:3"
             },
             {
                 "word_index": "5",
                 "word_form": "rot",
+                "lemma": "rot",
                 "pos_tag": "NN",
                 "morph_feat": "UTR|SIN|IND|NOM",
-                "token_id": "tok:0:24"
+                "token_id": "tok:0:4"
             },
             {
                 "word_index": "6",
                 "word_form": "i",
+                "lemma": "i",
                 "pos_tag": "PP",
                 "morph_feat": null,
-                "token_id": "tok:0:28"
+                "token_id": "tok:0:5"
             },
             {
                 "word_index": "7",
                 "word_form": "vardagslivet",
+                "lemma": "vardagsliv",
                 "pos_tag": "NN",
                 "morph_feat": "NEU|SIN|DEF|NOM",
-                "token_id": "tok:0:30"
+                "token_id": "tok:0:6"
             },
             {
                 "word_index": "8",
                 "word_form": "-",
+                "lemma": "-",
                 "pos_tag": "MID",
                 "morph_feat": null,
-                "token_id": "tok:0:43"
+                "token_id": "tok:0:7"
             },
             {
                 "word_index": "9",
                 "word_form": "Olof",
+                "lemma": "Olof",
                 "pos_tag": "PM",
                 "morph_feat": "NOM",
-                "token_id": "tok:0:45"
+                "token_id": "tok:0:8"
             },
             {
                 "word_index": "10",
                 "word_form": "Palme",
+                "lemma": "Palme",
                 "pos_tag": "PM",
                 "morph_feat": "NOM",
-                "token_id": "tok:0:50"
+                "token_id": "tok:0:9"
             }
         ]
     ],
     "entities": [
         {
             "word_form": "Olof Palme",
-            "ne_type": "person",
             "token_ids": [
-                "tok:0:45",
-                "tok:0:50"
+                "tok:0:8",
+                "tok:0:9"
             ]
         }
     ]
@@ -251,6 +260,10 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
                 <dt><code>word_form</code></dt>
                 <dd>Ordet som det skickades in till API:et, oförändrat.<br>
                 <em>Exempel: "Fördomen"</em></dd>
+
+                <dt><code>lemma</code></dt>
+                <dd>Grundformen för detta ord.<br>
+                <em>Exempel: "fördom"</em></dd>
 
                 <dt><code>pos_tag</code></dt>
                 <dd>Ordklassen för detta ord, som förkortningar med två eller tre bokstäver. En förklaring av <a href="#pos-tags">de olika ordklasstaggarna</a> hittar du nedan.<br>
