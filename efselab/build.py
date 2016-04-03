@@ -1,30 +1,19 @@
 #!/usr/bin/env python3
 from distutils.core import setup, Extension
 
-setup(
-    name='fasthash',
-    ext_modules=[
-        Extension(
-            name='fasthash',
-            sources=['fasthash.c'],
-            libraries=[],
-            extra_compile_args=['-Wall', '-Wno-unused-function'],
-            extra_link_args=[]
-        )
-    ],
-    script_args=['build_ext', '--inplace']
-)
+MODULES_TO_BUILD = ["fasthash", "suc", "lemmatize"]
 
-setup(
-    name="suc",
-    ext_modules=[
-        Extension(
-            name="suc",
-            sources=["suc.c"],
-            libraries=[],
-            extra_compile_args=['-Wall', '-Wno-unused-function', '-Ofast', '-g'],
-            extra_link_args=[]
-        )
-    ],
-    script_args=['build_ext', '--inplace']
-)
+for module in MODULES_TO_BUILD:
+    setup(
+        name=module,
+        ext_modules=[
+            Extension(
+                name=module,
+                sources=['%s.c' % module],
+                libraries=[],
+                extra_compile_args=['-Wall', '-Wno-unused-function'],
+                extra_link_args=[]
+            )
+        ],
+        script_args=['build_ext', '--inplace']
+    )
