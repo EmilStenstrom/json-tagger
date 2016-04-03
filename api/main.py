@@ -7,8 +7,12 @@ from nltk import data
 from nltk.tokenize import word_tokenize, sent_tokenize
 
 from efselab import suc as tagger
+from efselab import lemmatize
 
 data.path.append('../nltk_data')
+
+lemmatizer = lemmatize.SUCLemmatizer()
+lemmatizer.load('efselab/suc-saldo.lemmas')
 
 @route('/')
 @view('api/views/index')
@@ -42,11 +46,16 @@ def tag():
 
         sentence_data = []
         for i, (word, features) in enumerate(tokens_and_tags):
+            lemma = lemmatizer.predict(word, features)
+            pos_tag = features.split("|")[0]
+            morph_feat = "|".join(features.split("|")[1:]) or None
+
             token_data = OrderedDict([
                 ("word_index", str(i + 1)),
                 ("word_form", word),
-                ("pos_tag", features.split("|")[0]),
-                ("morph_feat", "|".join(features.split("|")[1:]) or None),
+                ("lemma", lemma),
+                ("pos_tag", pos_tag),
+                ("morph_feat", morph_feat),
                 ("token_id", "tok:{j}:{i}".format(j=j, i=i)),
             ])
             sentence_data.append(token_data)
