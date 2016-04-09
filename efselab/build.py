@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from distutils.core import setup, Extension
 
-MODULES_TO_BUILD = ["fasthash", "suc", "lemmatize"]
+MODULES_TO_BUILD = ["fasthash", "lemmatize", "suc"]
 
 def main():
     for module in MODULES_TO_BUILD:
