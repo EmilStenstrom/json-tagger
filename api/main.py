@@ -3,13 +3,10 @@ from collections import OrderedDict
 from itertools import groupby
 
 from bottle import route, request, response, view
-from nltk import data
-from nltk.tokenize import word_tokenize, sent_tokenize
 
 from efselab import suc as tagger
 from efselab import lemmatize
-
-data.path.append('../nltk_data')
+from efselab import tokenize
 
 lemmatizer = lemmatize.SUCLemmatizer()
 lemmatizer.load('efselab/suc-saldo.lemmas')
@@ -36,13 +33,12 @@ def tag():
     with open('efselab/suc.bin', 'rb') as f:
         weights = f.read()
 
-    sentence_list = sent_tokenize(data, "swedish")
+    sentence_list = tokenize.build_sentences(data)
     sentences = []
     entities = []
     for j, sentence in enumerate(sentence_list):
-        tokens = word_tokenize(sentence, "swedish")
-        tags = tagger.tag(weights, tokens)
-        tokens_and_tags = tuple(zip(tokens, tags))
+        tags = tagger.tag(weights, sentence)
+        tokens_and_tags = tuple(zip(sentence, tags))
 
         sentence_data = []
         for i, (word, features) in enumerate(tokens_and_tags):
