@@ -36,21 +36,23 @@ def tag():
     sentences = []
     entities = []
     for j, sentence in enumerate(sentence_list):
-        tags = tagger.tag(weights, sentence)
-        tokens_and_tags = tuple(zip(sentence, tags))
+        suc_tags = tagger.tag(weights, sentence)
+        annotated_sentence = tuple(zip(sentence, suc_tags))
 
         sentence_data = []
-        for i, (word, features) in enumerate(tokens_and_tags):
-            lemma = lemmatizer.predict(word, features)
-            pos_tag = features.split("|")[0]
-            morph_feat = "|".join(features.split("|")[1:]) or None
+        for i, (word, annotation) in enumerate(annotated_sentence):
+            lemma = lemmatizer.predict(word, annotation)
+            suc_pos_tag = annotation.split("|")[0]
+            suc_features = "|".join(annotation.split("|")[1:]) or None
 
             token_data = OrderedDict([
                 ("word_index", str(i + 1)),
                 ("word_form", word),
                 ("lemma", lemma),
-                ("pos_tag", pos_tag),
-                ("morph_feat", morph_feat),
+                ("suc_tags", OrderedDict([
+                    ("pos_tag", suc_pos_tag),
+                    ("features", suc_features),
+                ])),
                 ("token_id", "tok:{j}:{i}".format(j=j, i=i)),
             ])
             sentence_data.append(token_data)
