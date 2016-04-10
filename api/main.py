@@ -3,13 +3,19 @@ from collections import OrderedDict
 
 from bottle import route, request, response, view
 
-from efselab import suc as tagger
 from efselab import lemmatize
 from efselab import tokenize
+
+# Imports in tagger.py assume taggers are in the same dir
+import sys
+sys.path.append("efselab")
+
+from efselab.tagger import SucTagger  # NOQA
 
 lemmatizer = lemmatize.SUCLemmatizer()
 lemmatizer.load('efselab/suc-saldo.lemmas')
 
+suc_tagger = SucTagger("efselab/suc.bin")
 @route('/')
 @view('api/views/index')
 def index():
@@ -28,15 +34,11 @@ def tag():
     if not data:
         return {"error": "No data posted"}
 
-    weights = None
-    with open('efselab/suc.bin', 'rb') as f:
-        weights = f.read()
-
     sentence_list = tokenize.build_sentences(data)
     sentences = []
     entities = []
     for j, sentence in enumerate(sentence_list):
-        suc_tags = tagger.tag(weights, sentence)
+        suc_tags = suc_tagger.tag(sentence)
         annotated_sentence = tuple(zip(sentence, suc_tags))
 
         sentence_data = []

@@ -24,6 +24,7 @@ elif args.update:
     shutil.copy("../efselab/fasthash.c", "./efselab")
     shutil.copy("../efselab/lemmatize.c", "./efselab")
     shutil.copy("../efselab/pysuc.c", "./efselab/suc.c")
+    shutil.copy("../efselab/tagger.py", "./efselab/")
     shutil.copy("../efselab/tokenize.py", "./efselab/")
 
     if not os.path.exists("../efselab/swe-pipeline"):
