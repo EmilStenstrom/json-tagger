@@ -1,6 +1,5 @@
 import json
 from collections import OrderedDict
-from itertools import groupby
 
 from bottle import route, request, response, view
 
@@ -55,14 +54,6 @@ def tag():
                 ("token_id", "tok:{j}:{i}".format(j=j, i=i)),
             ])
             sentence_data.append(token_data)
-
-        grouped_tokens = groupby(sentence_data, lambda token: token["pos_tag"])
-        for token_group in [list(v) for k, v in grouped_tokens if k == "PM"]:
-            entity_data = OrderedDict([
-                ("word_form", " ".join([token["word_form"] for token in token_group])),
-                ("token_ids", [token["token_id"] for token in token_group]),
-            ])
-            entities.append(entity_data)
 
         sentences.append(sentence_data)
 
