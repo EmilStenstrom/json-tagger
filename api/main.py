@@ -38,7 +38,6 @@ def tag():
 
     sentence_list = tokenize.build_sentences(data)
     sentences = []
-    entities = []
     for j, sentence in enumerate(sentence_list):
         suc_tags = suc_tagger.tag(sentence)
         lemmas = [lemmatizer.predict(word, suc_tags[i]) for i, word in enumerate(sentence)]
@@ -79,5 +78,4 @@ def tag():
 
     return json.dumps(OrderedDict([
         ("sentences", sentences),
-        ("entities", entities),
     ]), **json_kwargs)
