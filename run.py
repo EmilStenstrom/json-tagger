@@ -24,6 +24,7 @@ elif args.update:
     shutil.copy("../efselab/fasthash.c", "./efselab")
     shutil.copy("../efselab/lemmatize.c", "./efselab")
     shutil.copy("../efselab/pysuc.c", "./efselab/suc.c")
+    shutil.copy("../efselab/pyudt_suc_sv.c", "./efselab/udt_suc_sv.c")
     shutil.copy("../efselab/tagger.py", "./efselab/")
     shutil.copy("../efselab/tokenize.py", "./efselab/")
 
@@ -31,6 +32,7 @@ elif args.update:
         sys.exit("Couldn't find a local swe-pipeline directory for models...")
 
     shutil.copy("../efselab/swe-pipeline/suc.bin", "./efselab")
+    shutil.copy("../efselab/swe-pipeline/suc-ud.bin", "./efselab")
     shutil.copy("../efselab/swe-pipeline/suc-saldo.lemmas", "./efselab")
 
     print("Building new files...")
