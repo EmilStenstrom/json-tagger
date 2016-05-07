@@ -89,15 +89,14 @@
     <h2 id="details">Om API:et</h2>
     <p>API:et bygger på <a href="https://github.com/robertostling/efselab">efselab</a>, ett projekt vid Stockholms Universitet. Efselab gör allt grovarbete:</p>
     <ul class="long">
+        <li><strong>Tokenisering av meningar och ord</strong> - Bryt isär texten i ord, och gruppera orden i meningar</li>
         <li><strong>Ordklasstaggning</strong> - Hitta varje ords ordklass, inklusive specifika egenskaper som singular/plural och passiva/aktiva former</li>
-        <li><strong>... på nolltid</strong> - Även stora datamängder på kort tid</li>
-        <li><strong>... utan att använda så mycket minne</strong> - Vilket gör att jag kan köra allt på en billig server</li>
+        <li><strong>Grundform</strong> - Hitta varje ords grundform</li>
+        <li><strong>Prestanda</strong> - Även stora datamängder på kort tid, och med väldigt lite minne vilket gör att jag kan köra allt på en billig server</li>
     </ul>
 
-    <p>JSON Tagger (detta projekt) gör efselab lägger till:</p>
+    <p>JSON Tagger (detta projekt) lägger till:</p>
     <ul class="long">
-        <li><strong>Tokenisering av meningar</strong> - Gruppera orden i meningar</li>
-        <li><strong>Tokenisering av ord</strong> - Dela upp meningar i ord</li>
         <li><strong>Gör all data tillgänglig via JSON</strong>. Efselab kräver att installerar C-program och tränar upp en datamodell, något som många inte kan göra själv. JSON förstår sig betydligt fler på, och det passar dessutom bra för data i webbmiljö.</li>
         <li><strong>Dokumenterar</strong> vad taggarna som efselab returnerar betyder (se nedan).</li>
     </ul>
@@ -105,7 +104,7 @@
     <p>Att tänka på:</p>
     <ul class="long">
         <li>Ordklasstaggningen bygger på samma modell som Stagger gör, och Stagger har dokumenterat väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>).</li>
-        <li>Språkmodellen som efselab är tränad på heter SUC, <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>, och är främst <strong>baserad på redaktionell text</strong>. Därför fungerar det bäst för nyhetsartiklar, produktbeskrivningar och liknande. Om du vill använda det för text från sociala medier behöver du använda en annan språkmodell. Den som används här kommer att ge för dåligt resultat.
+        <li>Språkmodellen som efselab är tränad på heter SUC, <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>, och är främst <strong>baserad på redaktionell text</strong>. Därför fungerar det bäst för nyhetsartiklar, produktbeskrivningar och liknande.</li>
     </ul>
 
     <p>Vem ligger bakom detta?</p>
