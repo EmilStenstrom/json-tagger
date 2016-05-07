@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>JSON Tagger - JSON API for efselab</title>
+    <title>JSON Tagger - Hitta ordklasser och grundform för ord i svensk text</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
@@ -69,8 +69,8 @@
     </style>
 </head>
 <body>
-    <h1>Hitta ordklasser och egennamn i svensk text</h1>
-    <p>Med detta API kan du hitta <strong>ordklasser</strong> (substantiv, verb, adjektiv, ...) och <strong>egennamn</strong> (personer, platser och institutioner) i <strong>svensk text</strong>.</p>
+    <h1>Hitta ordklass och grundform för ord i svensk text</h1>
+    <p>Med detta API kan du hitta <strong>ordklass</strong> (substantiv, verb, adjektiv, ...) och <strong>grundform</strong> (programmet -> program) för ord i <strong>svensk text</strong>.</p>
 
     <h2>Skriv in en svensk mening:</h2>
     <form action="/tag" method="post" class="pure-form">
@@ -99,7 +99,6 @@
         <li><strong>Tokenisering av meningar</strong> - Gruppera orden i meningar</li>
         <li><strong>Tokenisering av ord</strong> - Dela upp meningar i ord</li>
         <li><strong>Gör all data tillgänglig via JSON</strong>. Efselab kräver att installerar C-program och tränar upp en datamodell, något som många inte kan göra själv. JSON förstår sig betydligt fler på, och det passar dessutom bra för data i webbmiljö.</li>
-        <li><strong>Visar egennamn separat</strong>. Egennamnen är en av taggarna som efselab svarar med, JSON tagger slår ihop och paketerar dem på ett sätt som gör dem enkla att använda separat.</li>
         <li><strong>Dokumenterar</strong> vad taggarna som efselab returnerar betyder (se nedan).</li>
     </ul>
 
@@ -235,15 +234,6 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
                 "token_id": "tok:0:9"
             }
         ]
-    ],
-    "entities": [
-        {
-            "word_form": "Olof Palme",
-            "token_ids": [
-                "tok:0:8",
-                "tok:0:9"
-            ]
-        }
     ]
 }</code></pre>
 
@@ -276,20 +266,6 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
                 <dt><code>token_id</code></dt>
                 <dd>Ett ID som beskriver var i originaltexten som detta ord hittades. Börjar alltid med "net", följt av ett kolon och numret på meningen där ordet stod (första meningen är noll), följt av ett kolon och det antal tecken från början där ordet stod (första tecknet är noll).<br>
                 <em>Exempel: "tok:0:0"</em></dd>
-            </dl>
-        </dd>
-
-        <dt><code>entities</code></dt>
-        <dd>
-            En lista med egennamn som har identifierats i texten. Varje namn har följande egenskaper:
-            <dl>
-                <dt><code>word_form</code></dt>
-                <dd>De egennamn som hittats i texten, där flera efter varandra har slagits ihop till ett ord. Om t.ex. "Han heter Olof Palme" taggats så returneras "Olof" och "Palme" ovan som två olika ord, båda taggade som PM, egennamn. Här slås dessa ihop till ett ord.<br>
-                <em>Exempel: "Olof Palme"</em></dd>
-
-                <dt><code>token_ids</code></dt>
-                <dd>En lista som de token_ids som ingår i detta namn. Om man vill kombinera egennamn och ordklasstaggning kan man alltså ta ID:n härifrån och slå upp ordklass för de ingående orden ovan.<br>
-                <em>Exempel: ["tok:0:49", "tok:0:54"]</em></dd>
             </dl>
         </dd>
     </dl>
