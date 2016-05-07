@@ -10,12 +10,14 @@ from efselab import tokenize
 import sys
 sys.path.append("efselab")
 
-from efselab.tagger import SucTagger  # NOQA
+from efselab.tagger import SucTagger, UDTagger  # NOQA
 
 lemmatizer = lemmatize.SUCLemmatizer()
 lemmatizer.load('efselab/suc-saldo.lemmas')
 
 suc_tagger = SucTagger("efselab/suc.bin")
+ud_tagger = UDTagger("efselab/suc-ud.bin")
+
 @route('/')
 @view('api/views/index')
 def index():
@@ -39,13 +41,16 @@ def tag():
     entities = []
     for j, sentence in enumerate(sentence_list):
         suc_tags = suc_tagger.tag(sentence)
-        annotated_sentence = tuple(zip(sentence, suc_tags))
+        lemmas = [lemmatizer.predict(word, suc_tags[i]) for i, word in enumerate(sentence)]
+        ud_tags = ud_tagger.tag(sentence, lemmas, suc_tags)
+        annotated_sentence = tuple(zip(sentence, lemmas, suc_tags, ud_tags))
 
         sentence_data = []
-        for i, (word, annotation) in enumerate(annotated_sentence):
-            lemma = lemmatizer.predict(word, annotation)
-            suc_pos_tag = annotation.split("|")[0]
-            suc_features = "|".join(annotation.split("|")[1:]) or None
+        for i, (word, lemma, suc_annotation, ud_annotation) in enumerate(annotated_sentence):
+            suc_pos_tag = suc_annotation.split("|")[0]
+            suc_features = "|".join(suc_annotation.split("|")[1:]) or None
+            ud_pos_tag = ud_annotation.split("|")[0]
+            ud_features = "|".join(ud_annotation.split("|")[1:]) or None
 
             token_data = OrderedDict([
                 ("word_index", str(i + 1)),
@@ -54,6 +59,10 @@ def tag():
                 ("suc_tags", OrderedDict([
                     ("pos_tag", suc_pos_tag),
                     ("features", suc_features),
+                ])),
+                ("ud_tags", OrderedDict([
+                    ("pos_tag", ud_pos_tag),
+                    ("features", ud_features),
                 ])),
                 ("token_id", "tok:{j}:{i}".format(j=j, i=i)),
             ])
