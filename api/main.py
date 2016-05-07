@@ -52,7 +52,6 @@ def tag():
             ud_features = "|".join(ud_annotation.split("|")[1:]) or None
 
             token_data = OrderedDict([
-                ("word_index", str(i + 1)),
                 ("word_form", word),
                 ("lemma", lemma),
                 ("suc_tags", OrderedDict([
