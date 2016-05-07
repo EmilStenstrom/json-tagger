@@ -31,7 +31,6 @@
             }
         dt {
             font-style: italic;
-            text-align: right;
             overflow: hidden;
             padding-right: 3px;
         }
@@ -55,6 +54,7 @@
             font-size: 0.9em;
             max-height: 300px;
             overflow: auto;
+            white-space: pre;
         }
         textarea {
             font-size: 0.9em;
@@ -153,83 +153,133 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
     "sentences": [
         [
             {
-                "word_index": "1",
-                "word_form": "Fördomen",
-                "lemma": "fördom",
-                "pos_tag": "NN",
-                "morph_feat": "UTR|SIN|DEF|NOM",
+                "word_form": "F\u00f6rdomen",
+                "lemma": "f\u00f6rdom",
+                "suc_tags": {
+                    "pos_tag": "NN",
+                    "features": "UTR|SIN|DEF|NOM"
+                },
+                "ud_tags": {
+                    "pos_tag": "NOUN",
+                    "features": "Case=Nom|Definite=Def|Gender=Com|Number=Sing"
+                },
                 "token_id": "tok:0:0"
             },
             {
-                "word_index": "2",
                 "word_form": "har",
                 "lemma": "ha",
-                "pos_tag": "VB",
-                "morph_feat": "PRS|AKT",
+                "suc_tags": {
+                    "pos_tag": "VB",
+                    "features": "PRS|AKT"
+                },
+                "ud_tags": {
+                    "pos_tag": "VERB",
+                    "features": "Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act"
+                },
                 "token_id": "tok:0:1"
             },
             {
-                "word_index": "3",
                 "word_form": "alltid",
                 "lemma": "alltid",
-                "pos_tag": "AB",
-                "morph_feat": null,
+                "suc_tags": {
+                    "pos_tag": "AB",
+                    "features": null
+                },
+                "ud_tags": {
+                    "pos_tag": "ADV",
+                    "features": "_"
+                },
                 "token_id": "tok:0:2"
             },
             {
-                "word_index": "4",
                 "word_form": "sin",
                 "lemma": "sin",
-                "pos_tag": "PS",
-                "morph_feat": "UTR|SIN|DEF",
+                "suc_tags": {
+                    "pos_tag": "PS",
+                    "features": "UTR|SIN|DEF"
+                },
+                "ud_tags": {
+                    "pos_tag": "DET",
+                    "features": "Definite=Def|Gender=Com|Number=Sing|Poss=Yes"
+                },
                 "token_id": "tok:0:3"
             },
             {
-                "word_index": "5",
                 "word_form": "rot",
                 "lemma": "rot",
-                "pos_tag": "NN",
-                "morph_feat": "UTR|SIN|IND|NOM",
+                "suc_tags": {
+                    "pos_tag": "NN",
+                    "features": "UTR|SIN|IND|NOM"
+                },
+                "ud_tags": {
+                    "pos_tag": "NOUN",
+                    "features": "Case=Nom|Definite=Ind|Gender=Com|Number=Sing"
+                },
                 "token_id": "tok:0:4"
             },
             {
-                "word_index": "6",
                 "word_form": "i",
                 "lemma": "i",
-                "pos_tag": "PP",
-                "morph_feat": null,
+                "suc_tags": {
+                    "pos_tag": "PP",
+                    "features": null
+                },
+                "ud_tags": {
+                    "pos_tag": "ADP",
+                    "features": "_"
+                },
                 "token_id": "tok:0:5"
             },
             {
-                "word_index": "7",
                 "word_form": "vardagslivet",
                 "lemma": "vardagsliv",
-                "pos_tag": "NN",
-                "morph_feat": "NEU|SIN|DEF|NOM",
+                "suc_tags": {
+                    "pos_tag": "NN",
+                    "features": "NEU|SIN|DEF|NOM"
+                },
+                "ud_tags": {
+                    "pos_tag": "NOUN",
+                    "features": "Case=Nom|Definite=Def|Gender=Neut|Number=Sing"
+                },
                 "token_id": "tok:0:6"
             },
             {
-                "word_index": "8",
                 "word_form": "-",
                 "lemma": "-",
-                "pos_tag": "MID",
-                "morph_feat": null,
+                "suc_tags": {
+                    "pos_tag": "MID",
+                    "features": null
+                },
+                "ud_tags": {
+                    "pos_tag": "PUNCT",
+                    "features": "_"
+                },
                 "token_id": "tok:0:7"
             },
             {
-                "word_index": "9",
                 "word_form": "Olof",
                 "lemma": "Olof",
-                "pos_tag": "PM",
-                "morph_feat": "NOM",
+                "suc_tags": {
+                    "pos_tag": "PM",
+                    "features": "NOM"
+                },
+                "ud_tags": {
+                    "pos_tag": "PROPN",
+                    "features": "Case=Nom"
+                },
                 "token_id": "tok:0:8"
             },
             {
-                "word_index": "10",
                 "word_form": "Palme",
                 "lemma": "Palme",
-                "pos_tag": "PM",
-                "morph_feat": "NOM",
+                "suc_tags": {
+                    "pos_tag": "PM",
+                    "features": "NOM"
+                },
+                "ud_tags": {
+                    "pos_tag": "PROPN",
+                    "features": "Case=Nom"
+                },
                 "token_id": "tok:0:9"
             }
         ]
@@ -250,13 +300,33 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
                 <dd>Grundformen för detta ord.<br>
                 <em>Exempel: "fördom"</em></dd>
 
-                <dt><code>pos_tag</code></dt>
-                <dd>Ordklassen för detta ord, som förkortningar med två eller tre bokstäver. En förklaring av <a href="#pos-tags">de olika ordklasstaggarna</a> hittar du nedan.<br>
-                <em>Exempel: "NN"</em></dd>
+                <dt><code>suc_tags</code></dt>
+                <dd>
+                    Här finns ordklasstaggar för detta ord i <a href="#pos-tags">SUC-format</a>.
+                    <dl>
+                        <dt><code>pos_tag</code></dt>
+                        <dd>Ordklassen för detta ord, som förkortningar med två eller tre bokstäver. En förklaring av <a href="#pos-tags">de olika ordklasstaggarna</a> hittar du nedan.<br>
+                        <em>Exempel: "NN"</em></dd>
 
-                <dt><code>morph_feat</code></dt>
-                <dd>Mer detaljerade egenskaper för just den här ordklassen, i form av trebokstavsförkortningar. Om det finns flera egenskaper skiljs dom med "|"-tecknet. Om det är osäkert vilken tagg som gäller kan flera taggar ges med "/" mellan. En förklaring av <a href="#morph-feat">de mer specifika taggarna</a> hittar du nedan.<br>
-                <em>Exempel: "UTR|SIN|DEF|NOM"</em></dd>
+                        <dt><code>morph_feat</code></dt>
+                        <dd>Mer detaljerade egenskaper för just den här ordklassen, i form av trebokstavsförkortningar. Om det finns flera egenskaper skiljs dom med "|"-tecknet. Om det är osäkert vilken tagg som gäller kan flera taggar ges med "/" mellan. En förklaring av <a href="#morph-feat">de mer specifika taggarna</a> hittar du nedan.<br>
+                        <em>Exempel: "UTR|SIN|DEF|NOM"</em></dd>
+                    </dl>
+                </dd>
+
+                <dt><code>ud_tags</code></dt>
+                <dd>
+                    Här finns ordklasstaggar för detta ord i <a href="http://universaldependencies.org">Universal Dependency (UD)</a>-format. Detta format fungerar för fler språk än svenska så det kan vara användbart om du ska skicka vidare resultatet till ett annat system.
+                    <dl>
+                        <dt><code>pos_tag</code></dt>
+                        <dd>Ordklassen för detta ord, som förkortningar med tre eller fyra bokstäver.<br>
+                        <em>Exempel: "NOUN"</em></dd>
+
+                        <dt><code>morph_feat</code></dt>
+                        <dd>Mer detaljerade egenskaper för just den här ordklassen, i form av nyckel/värde-par. Om det finns flera egenskaper skiljs dom med "|"-tecknet.<br>
+                        <em>Exempel: "Case=Nom|Definite=Def|Gender=Com|Number=Sing"</em></dd>
+                    </dl>
+                </dd>
 
                 <dt><code>token_id</code></dt>
                 <dd>Ett ID som beskriver var i originaltexten som detta ord hittades. Börjar alltid med "net", följt av ett kolon och numret på meningen där ordet stod (första meningen är noll), följt av ett kolon och det antal tecken från början där ordet stod (första tecknet är noll).<br>
@@ -265,7 +335,7 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
         </dd>
     </dl>
 
-    <h2 id="pos-tags">Förklaring av ordklasstaggarna</h2>
+    <h2 id="pos-tags">Förklaring av SUC-ordklasstaggarna</h2>
     <p>Förkortningarna i <code>pos_tag</code> motsvarar alltså ordklasser. Ordklasserna (både dessa och de mer specifika nedan) kommer från ett projekt som heter <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>. Över en miljon ord har manuellt taggats, och denna databas har sen använts för att träna efselab.</p>
 
     <table class="pure-table pure-table-striped">
@@ -305,7 +375,7 @@ request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i varda
         </tbody>
     </table>
 
-    <h2 id="morph-feat">Förklaring av de mer specifika taggarna</h2>
+    <h2 id="morph-feat">Förklaring av de mer specifika SUC-taggarna</h2>
     <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även specifika böjningsformer i <code>morph_feat</code>. Notera att femininum inte finns med bland genusformerna eftersom det inte påverkar böjningen på svenska.</p>
 
     <table class="pure-table pure-table-bordered">
