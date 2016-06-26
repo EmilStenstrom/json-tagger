@@ -123,27 +123,27 @@
     <p>API:et kräver att du skickar en POST-request över HTTP. Det går att göra i alla plattformar och programmeringsspråk, men här är några av de vanligaste:</p>
 
     <h3>cURL (finns förinstallerat på alla Mac och Linux-datorer)</h3>
-    <pre><code class="bash">curl {{ site }}/tag -d "Fördomen har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
+    <pre><code class="bash">curl $site/tag -d "Fördomen har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
 
     <h3>Python 2 (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
     <pre><code class="python"># -*- coding: utf-8 -*-
 import requests
-r = requests.post("{{ site }}/tag", data=u"Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
+r = requests.post("$site/tag", data=u"Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
 print r.json()</code></pre>
 
     <h3>Python 3 (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
-r = requests.post("{{ site }}/tag", data="Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
     <pre><code class="python3">import requests
+r = requests.post("$site/tag", data="Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
 print(r.json())</code></pre>
 
     <h3>Ruby (med hjälp av <a href="https://github.com/tarcieri/http.rb">http.rb</a>)</h3>
     <pre><code class="ruby">require 'http'
-r = HTTP.post("{{ site }}/tag", :body => "Fördomen har alltid sin rot i vardagslivet - Olof Palme")
+r = HTTP.post("$site/tag", :body => "Fördomen har alltid sin rot i vardagslivet - Olof Palme")
 puts r.to_s</code></pre>
 
     <h3>Node.js (med hjälp av <a href="https://github.com/request/request">request</a>)</h3>
     <pre><code class="javascript">var request = require('request');
-request.post({url: '{{ site }}/tag', body: "Fördomen har alltid sin rot i vardagslivet - Olof Palme"}, function (error, response, body) {
+request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagslivet - Olof Palme"}, function (error, response, body) {
     console.log(body)
 })</code></pre>
 
