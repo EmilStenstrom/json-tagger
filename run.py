@@ -15,11 +15,7 @@ args = parser.parse_args()
 if not any(vars(args).values()):
     parser.print_help()
 elif args.run:
-    os.system(
-        "gunicorn server:app --reload --access-logfile '-'"
-        " --access-logformat \"%(h)s %(l)s %(u)s %(t)s %(r)s"
-        " %(s)s %(b)s %(f)s %(a)s [%(D)s μs]\""
-    )
+    os.system("gunicorn server:app --reload --config gunicorn_config.py")
 elif args.deploy:
     os.system("git push heroku master")
 elif args.update:
