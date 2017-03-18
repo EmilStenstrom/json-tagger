@@ -1,22 +1,10 @@
-import falcon
 from falcon.util.uri import parse_query_string
 import json
 from collections import OrderedDict
+from api.ud_helper import Parser as UD_Parser
+from conllu import parser as conllu_parser
 
-from efselab import lemmatize
-from efselab import tokenize
-
-# Imports in tagger.py assume taggers are in the same dir
-import sys
-sys.path.append("efselab")
-
-from efselab.tagger import SucTagger, UDTagger  # NOQA
-
-lemmatizer = lemmatize.SUCLemmatizer()
-lemmatizer.load('efselab/suc-saldo.lemmas')
-
-suc_tagger = SucTagger("efselab/suc.bin")
-ud_tagger = UDTagger("efselab/suc-ud.bin")
+UD_PARSER = UD_Parser(language="swe")
 
 class ApiResource(object):
     def _parse_post_data(self, raw_post_data):
@@ -49,28 +37,25 @@ class ApiResource(object):
         if not data:
             return {"error": "No data posted"}
 
-        sentence_list = tokenize.build_sentences(data)
+        sentences_raw = UD_PARSER.parse(data)
+        sentences_parsed = conllu_parser.parse(sentences_raw)
+
         sentences = []
-        for j, sentence in enumerate(sentence_list):
-            suc_tags = suc_tagger.tag(sentence)
-            lemmas = [lemmatizer.predict(word, suc_tags[i]) for i, word in enumerate(sentence)]
-            ud_tags = ud_tagger.tag(sentence, lemmas, suc_tags)
-            annotated_sentence = tuple(zip(sentence, lemmas, suc_tags, ud_tags))
+        for j, sentence_parsed in enumerate(sentences_parsed):
 
             sentence_data = []
-            for i, (word, lemma, suc_annotation, ud_annotation) in enumerate(annotated_sentence):
-                suc_pos_tag = suc_annotation.split("|")[0]
-                suc_features = "|".join(suc_annotation.split("|")[1:]) or None
-                ud_pos_tag = ud_annotation.split("|")[0]
-                ud_features = "|".join(ud_annotation.split("|")[1:]) or None
+            for i, word_parsed in enumerate(sentence_parsed):
+                word = word_parsed.get("form", None)
+                lemma = word_parsed.get("lemma", None)
+                ud_pos_tag = word_parsed.get("upostag", None)
+                ud_features = word_parsed.get("feats")
+                if ud_features:
+                    ud_features = sorted(ud_features.items())
+                    ud_features = "|".join(["{}={}".format(key, value) for key, value in ud_features])
 
                 token_data = OrderedDict([
                     ("word_form", word),
                     ("lemma", lemma),
-                    ("suc_tags", OrderedDict([
-                        ("pos_tag", suc_pos_tag),
-                        ("features", suc_features),
-                    ])),
                     ("ud_tags", OrderedDict([
                         ("pos_tag", ud_pos_tag),
                         ("features", ud_features),

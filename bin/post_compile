@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-cd efselab
-python build.py
