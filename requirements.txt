@@ -4,5 +4,5 @@ gunicorn==19.6.0
 newrelic==2.58.2.45
 
 # NLP dependencencies
-ufal.udpipe==1.0.0.1
+ufal.udpipe==1.1.0.1
 conllu==0.3
