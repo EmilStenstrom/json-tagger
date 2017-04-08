@@ -66,6 +66,7 @@ class ApiResource(object):
 
             sentences.append(sentence_data)
 
+        response.set_header("Strict-Transport-Security", "max-age=31536000")
         response.content_type = "application/json"
 
         pretty = request.get_param("pretty", False)
