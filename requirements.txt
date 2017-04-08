@@ -1,5 +1,5 @@
 # Application dependencencies
-falcon==1.0.0
+falcon==1.1.0
 gunicorn==19.6.0
 newrelic==2.58.2.45
 
