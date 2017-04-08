@@ -24,5 +24,5 @@ class RedirectToHTTPS(object):
             if match and match.group(1).lower() == 'https':
                 return
 
-        site_https = request.uri.replace("http://", "https://", maxreplace=1)
+        site_https = request.uri.replace("http://", "https://", 1)
         raise falcon.HTTPMovedPermanently(site_https)
