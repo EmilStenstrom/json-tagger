@@ -1,7 +1,7 @@
 # Application dependencencies
 falcon==1.1.0
-gunicorn==19.6.0
-newrelic==2.58.2.45
+gunicorn==19.7.1
+newrelic==2.82.0.62
 
 # NLP dependencencies
 ufal.udpipe==1.1.0.1
