@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
     <meta charset="utf-8">
     <title>JSON Tagger - Hitta ordklasser och grundform för ord i svensk text</title>
@@ -67,10 +67,20 @@
         table td:first-child {
             border-right: 1px solid #CBCBCB;
         }
+        aside {
+            background: #232323;
+            margin: 1em 0;
+            padding: 1em;
+            border-radius: 3px;
+            color: #fff;
+        }
+        aside a {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
-    <h1>Hitta ordklass och grundform för ord i svensk text</h1>
+    <h1>JSON Tagger</h1>
     <p>Med detta API kan du hitta <strong>ordklass</strong> (substantiv, verb, adjektiv, ...) och <strong>grundform</strong> (programmet -> program) för ord i <strong>svensk text</strong>.</p>
 
     <h2>Skriv in en svensk mening:</h2>
@@ -80,15 +90,18 @@
         <p><button type="submit" class="pure-button pure-button-primary">Prova API:et &raquo;</button></p>
     </form>
 
+    <aside>Jag driver detta gratis API som ett hobbyprojekt, med pengar från egen ficka. Om du gillar projektet får du gärna berätta det för mig! - <a href="http://twitter.com/EmilStenstrom">Emil Stenström</a></aside>
+
     <h2>Läs mer om API:et</h2>
     <ul class="navigation">
         <li><a href="#details" class="pure-button pure-button-primary">Om API:et</a></li>
         <li><a href="#basics" class="pure-button pure-button-primary">Göra anrop</a></li>
         <li><a href="#response" class="pure-button pure-button-primary">Svarsformat</a></li>
+        <li><a href="#pos-tags" class="pure-button pure-button-primary">Förklaring av ordklasserna</a></li>
     </ul>
 
     <h2 id="details">Om API:et</h2>
-    <p>API:et bygger på <a href="https://github.com/robertostling/efselab">efselab</a>, ett projekt vid Stockholms Universitet. Efselab gör allt grovarbete:</p>
+    <p>API:et bygger på <a href="https://ufal.mff.cuni.cz/udpipe">UDPipe</a>, ett projekt vid Charles University i Tjeckien. UDPipe gör allt grovarbete:</p>
     <ul class="long">
         <li><strong>Tokenisering av meningar och ord</strong> - Bryt isär texten i ord, och gruppera orden i meningar</li>
         <li><strong>Ordklasstaggning</strong> - Hitta varje ords ordklass, inklusive specifika egenskaper som singular/plural och passiva/aktiva former</li>
@@ -98,20 +111,15 @@
 
     <p>JSON Tagger (detta projekt) lägger till:</p>
     <ul class="long">
-        <li><strong>Gör all data tillgänglig via JSON</strong>. Efselab kräver att installerar C-program och tränar upp en datamodell, något som många inte kan göra själv. JSON förstår sig betydligt fler på, och det passar dessutom bra för data i webbmiljö.</li>
-        <li><strong>Dokumenterar</strong> vad taggarna som efselab returnerar betyder (se nedan).</li>
-    </ul>
-
-    <p>Att tänka på:</p>
-    <ul class="long">
-        <li>Ordklasstaggningen bygger på samma modell som Stagger gör, och Stagger har dokumenterat väldigt hög precision (<a href="http://www.ling.su.se/english/nlp/tools/stagger">96,6%</a>).</li>
-        <li>Språkmodellen som efselab är tränad på heter SUC, <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>, och är främst <strong>baserad på redaktionell text</strong>. Därför fungerar det bäst för nyhetsartiklar, produktbeskrivningar och liknande.</li>
+        <li><strong>Gör all data tillgänglig via JSON</strong>. UDPipe svarar med data i ConLL-U-format vilket alla inte känner till. JSON förstår sig betydligt fler på, och det passar dessutom bra för data i webbmiljö.</li>
+        <li><strong>Dokumenterar</strong> vad taggarna som UDPipe returnerar betyder (se nedan).</li>
     </ul>
 
     <p>Vem ligger bakom detta?</p>
     <ul>
-        <li><a href="https://github.com/robertostling/efselab">efselab</a> skapades av <a href="http://www.ling.su.se/om-oss/kontakt/presentationer-medarbetare/m-%C3%B6/robert-%C3%B6stling-1.14962">Robert Östling</a>.</li>
         <li>JSON Tagger (detta projekt) skapades av <a href="http://twitter.com/EmilStenstrom">Emil Stenström</a>.</li>
+        <li>UDPipe skapades av <a href="https://ufal.mff.cuni.cz/milan-straka">Milan Straka</a>.</li>
+        <li>(Den första versionen av JSON-tagger använde sig av <a href="https://github.com/robertostling/efselab">efselab</a>, av <a href="http://www.ling.su.se/om-oss/kontakt/presentationer-medarbetare/m-%C3%B6/robert-%C3%B6stling-1.14962">Robert&nbsp;Östling</a>.)</li>
     </ul>
 
     <p>Vill du använda API:et?</p>
@@ -155,11 +163,7 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
         [
             {
                 "word_form": "Fördomen",
-                "lemma": "fördom",
-                "suc_tags": {
-                    "pos_tag": "NN",
-                    "features": "UTR|SIN|DEF|NOM"
-                },
+                "lemma": "Fördom",
                 "ud_tags": {
                     "pos_tag": "NOUN",
                     "features": "Case=Nom|Definite=Def|Gender=Com|Number=Sing"
@@ -169,10 +173,6 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
             {
                 "word_form": "har",
                 "lemma": "ha",
-                "suc_tags": {
-                    "pos_tag": "VB",
-                    "features": "PRS|AKT"
-                },
                 "ud_tags": {
                     "pos_tag": "VERB",
                     "features": "Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act"
@@ -182,36 +182,24 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
             {
                 "word_form": "alltid",
                 "lemma": "alltid",
-                "suc_tags": {
-                    "pos_tag": "AB",
-                    "features": null
-                },
                 "ud_tags": {
                     "pos_tag": "ADV",
-                    "features": "_"
+                    "features": null
                 },
                 "token_id": "tok:0:2"
             },
             {
                 "word_form": "sin",
-                "lemma": "sin",
-                "suc_tags": {
-                    "pos_tag": "PS",
-                    "features": "UTR|SIN|DEF"
-                },
+                "lemma": "sig",
                 "ud_tags": {
                     "pos_tag": "DET",
-                    "features": "Definite=Def|Gender=Com|Number=Sing|Poss=Yes"
+                    "features": "Definite=Def|Gender=Com|Number=Sing|Poss=Yes|PronType=Prs"
                 },
                 "token_id": "tok:0:3"
             },
             {
                 "word_form": "rot",
                 "lemma": "rot",
-                "suc_tags": {
-                    "pos_tag": "NN",
-                    "features": "UTR|SIN|IND|NOM"
-                },
                 "ud_tags": {
                     "pos_tag": "NOUN",
                     "features": "Case=Nom|Definite=Ind|Gender=Com|Number=Sing"
@@ -221,23 +209,15 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
             {
                 "word_form": "i",
                 "lemma": "i",
-                "suc_tags": {
-                    "pos_tag": "PP",
-                    "features": null
-                },
                 "ud_tags": {
                     "pos_tag": "ADP",
-                    "features": "_"
+                    "features": null
                 },
                 "token_id": "tok:0:5"
             },
             {
                 "word_form": "vardagslivet",
                 "lemma": "vardagsliv",
-                "suc_tags": {
-                    "pos_tag": "NN",
-                    "features": "NEU|SIN|DEF|NOM"
-                },
                 "ud_tags": {
                     "pos_tag": "NOUN",
                     "features": "Case=Nom|Definite=Def|Gender=Neut|Number=Sing"
@@ -247,23 +227,15 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
             {
                 "word_form": "-",
                 "lemma": "-",
-                "suc_tags": {
-                    "pos_tag": "MID",
-                    "features": null
-                },
                 "ud_tags": {
                     "pos_tag": "PUNCT",
-                    "features": "_"
+                    "features": null
                 },
                 "token_id": "tok:0:7"
             },
             {
                 "word_form": "Olof",
                 "lemma": "Olof",
-                "suc_tags": {
-                    "pos_tag": "PM",
-                    "features": "NOM"
-                },
                 "ud_tags": {
                     "pos_tag": "PROPN",
                     "features": "Case=Nom"
@@ -273,10 +245,6 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
             {
                 "word_form": "Palme",
                 "lemma": "Palme",
-                "suc_tags": {
-                    "pos_tag": "PM",
-                    "features": "NOM"
-                },
                 "ud_tags": {
                     "pos_tag": "PROPN",
                     "features": "Case=Nom"
@@ -301,20 +269,6 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 <dd>Grundformen för detta ord.<br>
                 <em>Exempel: "fördom"</em></dd>
 
-                <dt><code>suc_tags</code></dt>
-                <dd>
-                    Här finns ordklasstaggar för detta ord i <a href="#pos-tags">SUC-format</a>.
-                    <dl>
-                        <dt><code>pos_tag</code></dt>
-                        <dd>Ordklassen för detta ord, som förkortningar med två eller tre bokstäver. En förklaring av <a href="#pos-tags">de olika ordklasstaggarna</a> hittar du nedan.<br>
-                        <em>Exempel: "NN"</em></dd>
-
-                        <dt><code>morph_feat</code></dt>
-                        <dd>Mer detaljerade egenskaper för just den här ordklassen, i form av trebokstavsförkortningar. Om det finns flera egenskaper skiljs dom med "|"-tecknet. Om det är osäkert vilken tagg som gäller kan flera taggar ges med "/" mellan. En förklaring av <a href="#morph-feat">de mer specifika taggarna</a> hittar du nedan.<br>
-                        <em>Exempel: "UTR|SIN|DEF|NOM"</em></dd>
-                    </dl>
-                </dd>
-
                 <dt><code>ud_tags</code></dt>
                 <dd>
                     Här finns ordklasstaggar för detta ord i <a href="http://universaldependencies.org">Universal Dependency (UD)</a>-format. Detta format fungerar för fler språk än svenska så det kan vara användbart om du ska skicka vidare resultatet till ett annat system.
@@ -323,7 +277,7 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         <dd>Ordklassen för detta ord, som förkortningar med tre eller fyra bokstäver.<br>
                         <em>Exempel: "NOUN"</em></dd>
 
-                        <dt><code>morph_feat</code></dt>
+                        <dt><code>features</code></dt>
                         <dd>Mer detaljerade egenskaper för just den här ordklassen, i form av nyckel/värde-par. Om det finns flera egenskaper skiljs dom med "|"-tecknet.<br>
                         <em>Exempel: "Case=Nom|Definite=Def|Gender=Com|Number=Sing"</em></dd>
                     </dl>
@@ -336,8 +290,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
         </dd>
     </dl>
 
-    <h2 id="pos-tags">Förklaring av SUC-ordklasstaggarna</h2>
-    <p>Förkortningarna i <code>pos_tag</code> motsvarar alltså ordklasser. Ordklasserna (både dessa och de mer specifika nedan) kommer från ett projekt som heter <a href="http://spraakbanken.gu.se/eng/resources/suc">Stockholm Umeå Corpus</a>. Över en miljon ord har manuellt taggats, och denna databas har sen använts för att träna efselab.</p>
+    <h2 id="pos-tags">Förklaring av UD-ordklasstaggarna</h2>
+    <p>Förkortningarna i <code>pos_tag</code> motsvarar alltså ordklasser. Ordklasserna (både dessa och de mer specifika nedan) kommer från ett projekt som heter <a href="http://universaldependencies.org/u/pos/index.html">Universal Dependencies</a>. Taggarna är speciellt framtagna för att fungera på flera olika språk.</p>
 
     <table class="pure-table pure-table-striped">
         <thead>
@@ -348,188 +302,32 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
             </tr>
         </thead>
         <tbody>
-            <tr><td>AB</td><td>Adverb</td><td>inte</td></tr>
-            <tr><td>DT</td><td>Determinerare</td><td>denna</td></tr>
-            <tr><td>HA</td><td>Frågande/relativt adverb</td><td>när</td></tr>
-            <tr><td>HD</td><td>Frågande/relativ determinerare</td><td>vilken</td></tr>
-            <tr><td>HP</td><td>Frågande/relativt pronomen</td><td>som</td></tr>
-            <tr><td>HS</td><td>Frågande/relativt possessivt pronomen</td><td>vars</td></tr>
-            <tr><td>IE</td><td>Infinitivmärke</td><td>att</td></tr>
-            <tr><td>IN</td><td>Interjektion</td><td>ja</td></tr>
-            <tr><td>JJ</td><td>Adjektiv</td><td>glad</td></tr>
-            <tr><td>KN</td><td>Konjunktion</td><td>och</td></tr>
-            <tr><td>NN</td><td>Substantiv</td><td>pudding</td></tr>
-            <tr><td>PC</td><td>Particip</td><td>utsänd</td></tr>
-            <tr><td>PL</td><td>Partikel</td><td>ut</td></tr>
-            <tr><td>PM</td><td>Egennamn</td><td>Mats</td></tr>
-            <tr><td>PN</td><td>Pronomen</td><td>hon</td></tr>
-            <tr><td>PP</td><td>Preposition</td><td>av</td></tr>
-            <tr><td>PS</td><td>Possessivt pronomen</td><td>hennes</td></tr>
-            <tr><td>RG</td><td>Grundtal</td><td>tre</td></tr>
-            <tr><td>RO</td><td>Ordningstal</td><td>tredje</td></tr>
-            <tr><td>SN</td><td>Subjunktion</td><td>att</td></tr>
-            <tr><td>UO</td><td>Utländskt ord</td><td>the</td></tr>
-            <tr><td>VB</td><td>Verb</td><td>kasta</td></tr>
-            <tr><td>MAD</td><td>Meningsavslutare</td><td>. (punkt)</td></tr>
-            <tr><td>MID</td><td>Meningsdelare</td><td>, (komma)</td></tr>
-            <tr><td>PAD</td><td>Parvis skiljetecken</td><td>- (streck)</td></tr>
+            <tr><td>ADJ</td><td><a href="https://sv.wikipedia.org/wiki/Adjektiv">Adjektiv</a></td><td>glad</td></tr>
+            <tr><td>ADP</td><td><a href="https://sv.wikipedia.org/wiki/Adposition">Adposition</a></td><td>hos</td></tr>
+            <tr><td>ADV</td><td><a href="https://sv.wikipedia.org/wiki/Adverb">Adverb</a></td><td>inte</td></tr>
+            <tr><td>AUX</td><td><a href="https://sv.wikipedia.org/wiki/Hjälpverb">Hjälpverb</a></td><td>skulle</td></tr>
+            <tr><td>CCONJ</td><td><a href="https://sv.wikipedia.org/wiki/Konjunktion_(ordklass)#Samordnande_konjunktioner">Samordnande konjunktioner</a></td><td>och</td></tr>
+            <tr><td>DET</td><td><a href="https://sv.wikipedia.org/wiki/Determinativt_pronomen">Determinativa pronomen</a></td><td>den</td></tr>
+            <tr><td>INTJ</td><td><a href="https://sv.wikipedia.org/wiki/Interjektion">Interjektion</a></td><td>usch!</td></tr>
+            <tr><td>NOUN</td><td><a href="https://sv.wikipedia.org/wiki/Substantiv">Substantiv</a></td><td>pudding</td></tr>
+            <tr><td>NUM</td><td><a href="https://sv.wikipedia.org/wiki/R%C3%A4kneord">Räkneord</a></td><td>123</td></tr>
+            <tr><td>PART</td><td><a href="https://sv.wikipedia.org/wiki/Partikel_(lingvistik)">Partikel</a></td><td>ju</td></tr>
+            <tr><td>PRON</td><td><a href="https://sv.wikipedia.org/wiki/Pronomen">Pronomen</a></td><td>vem</td></tr>
+            <tr><td>PROPN</td><td><a href="https://sv.wikipedia.org/wiki/Egennamn">Egennamn</a></td><td>Carl</td></tr>
+            <tr><td>PUNCT</td><td><a href="https://sv.wikipedia.org/wiki/Skiljetecken">Skiljetecken</a></td><td>. (punkt)</td></tr>
+            <tr><td>SCONJ</td><td><a href="https://sv.wikipedia.org/wiki/Konjunktion_(ordklass)#Underordnande_konjunktioner_.E2.80.94_subjunktioner">Subjunktioner</a></td><td>att</td></tr>
+            <tr><td>SYM</td><td><a href="https://sv.wikipedia.org/wiki/Symbol">Symbol</a></td><td>€</td></tr>
+            <tr><td>VERB</td><td><a href="https://sv.wikipedia.org/wiki/Verb">Verb</a></td><td>kasta</td></tr>
+            <tr><td>X</td><td>Övrigt</td><td></td></tr>
         </tbody>
     </table>
 
-    <h2 id="morph-feat">Förklaring av de mer specifika SUC-taggarna</h2>
-    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även specifika böjningsformer i <code>morph_feat</code>. Notera att femininum inte finns med bland genusformerna eftersom det inte påverkar böjningen på svenska.</p>
+    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även specifika böjningsformer i <code>features</code>. Dessa finns dokumenterade på engelska på <a href="http://universaldependencies.org/u/feat/">Universial Dependencies feature-referens</a>.</p>
 
-    <table class="pure-table pure-table-bordered">
-        <thead>
-            <tr>
-                <th>Paradigm</th>
-                <th>Kod</th>
-                <th>Legend</th>
-                <th>Gäller för...</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="pure-table-odd">
-                <td rowspan="3"><strong>Genus</strong></td>
-                <td>UTR</td>
-                <td>Utrum</td>
-                <td rowspan="3">DT, HD, HP, JJ, NN, PC, PN, PS, (RG, RO)</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>NEU</td>
-                <td>Neutrum</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>MAS</td>
-                <td>Maskulinum</td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><strong>Numerus</strong></td>
-                <td>SIN</td>
-                <td>Singular</td>
-                <td rowspan="2">DT, HD, HP, JJ, NN, PC, PN, PS, (RG, RO)</td>
-            </tr>
-            <tr>
-                <td>PLU</td>
-                <td>Plural</td>
-            </tr>
-
-            <tr class="pure-table-odd">
-                <td rowspan="2"><strong>Species</strong></td>
-                <td>IND</td>
-                <td>Obestämd</td>
-                <td rowspan="2">DT, (HD, HP, HS), JJ, NN, PC, PN, (PS, RG, RO)</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>DEF</td>
-                <td>Bestämd</td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><strong>Kasus</strong></td>
-                <td>NOM</td>
-                <td>Nominativ</td>
-                <td rowspan="2">JJ, NN, PC, PM, (RG, RO)</td>
-            </tr>
-            <tr>
-                <td>GEN</td>
-                <td>Genitiv</td>
-            </tr>
-
-            <tr class="pure-table-odd">
-                <td rowspan="4"><strong>Tempus</strong></td>
-                <td>PRS</td>
-                <td>Presens</td>
-                <td rowspan="4">VB</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>PRT</td>
-                <td>Imperfekt/Preteritum</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>SUP</td>
-                <td>Supinum</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>INF</td>
-                <td>Infinitiv</td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><strong>Diates</strong></td>
-                <td>AKT</td>
-                <td>Aktivum</td>
-                <td rowspan="2">VB</td>
-            </tr>
-            <tr>
-                <td>SFO</td>
-                <td>Passivum</td>
-            </tr>
-
-            <tr class="pure-table-odd">
-                <td rowspan="2"><strong>Modus</strong></td>
-                <td>KON</td>
-                <td>Konjunktiv</td>
-                <td rowspan="2">VB</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>IMP</td>
-                <td>Imperativ</td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><strong>Particip</strong></td>
-                <td>PRS</td>
-                <td>Presens particip</td>
-                <td rowspan="2">PC</td>
-            </tr>
-            <tr>
-                <td>PRF</td>
-                <td>Perfekt particip</td>
-            </tr>
-
-            <tr class="pure-table-odd">
-                <td rowspan="3"><strong>Komparation</strong></td>
-                <td>POS</td>
-                <td>Positiv</td>
-                <td rowspan="3">(AB), JJ</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>KOM</td>
-                <td>Komparativ</td>
-            </tr>
-            <tr class="pure-table-odd">
-                <td>SUV</td>
-                <td>Superlativ</td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><strong>Pronomenform</strong></td>
-                <td>SUB</td>
-                <td>Subjekt</td>
-                <td rowspan="2">PN</td>
-            </tr>
-            <tr>
-                <td>OBJ</td>
-                <td>Objekt</td>
-            </tr>
-
-            <tr class="pure-table-odd">
-                <td><strong>Sammansatt</strong></td>
-                <td>SMS</td>
-                <td>Sammansatt</td>
-                <td>Alla ordklasser</td>
-            </tr>
-
-            <tr>
-                <td><strong>Förkortning</strong></td>
-                <td>AN</td>
-                <td>Förkortning</td>
-                <td>Alla ordklasser</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Källkod</h2>
+    <aside>
+        Källkoden till detta projekt finns tillgängligt på Github: <a href="https://github.com/EmilStenstrom/json-tagger">https://github.com/EmilStenstrom/json-tagger</a>
+    </aside>
 
     <script>hljs.initHighlightingOnLoad();</script>
 </body>
