@@ -49,9 +49,6 @@ class ApiResource(object):
                 lemma = word_parsed.get("lemma", None)
                 ud_pos_tag = word_parsed.get("upostag", None)
                 ud_features = word_parsed.get("feats")
-                if ud_features:
-                    ud_features = sorted(ud_features.items())
-                    ud_features = "|".join(["{}={}".format(key, value) for key, value in ud_features])
 
                 token_data = OrderedDict([
                     ("word_form", word),

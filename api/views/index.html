@@ -166,7 +166,12 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 "lemma": "Fördom",
                 "ud_tags": {
                     "pos_tag": "NOUN",
-                    "features": "Case=Nom|Definite=Def|Gender=Com|Number=Sing"
+                    "features": {
+                        "Case": "Nom",
+                        "Definite": "Def",
+                        "Gender": "Com",
+                        "Number": "Sing"
+                    }
                 },
                 "token_id": "tok:0:0"
             },
@@ -175,7 +180,12 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 "lemma": "ha",
                 "ud_tags": {
                     "pos_tag": "VERB",
-                    "features": "Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act"
+                    "features": {
+                        "Mood": "Ind",
+                        "Tense": "Pres",
+                        "VerbForm": "Fin",
+                        "Voice": "Act"
+                    }
                 },
                 "token_id": "tok:0:1"
             },
@@ -193,7 +203,13 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 "lemma": "sig",
                 "ud_tags": {
                     "pos_tag": "DET",
-                    "features": "Definite=Def|Gender=Com|Number=Sing|Poss=Yes|PronType=Prs"
+                    "features": {
+                        "Definite": "Def",
+                        "Gender": "Com",
+                        "Number": "Sing",
+                        "Poss": "Yes",
+                        "PronType": "Prs"
+                    }
                 },
                 "token_id": "tok:0:3"
             },
@@ -202,7 +218,12 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 "lemma": "rot",
                 "ud_tags": {
                     "pos_tag": "NOUN",
-                    "features": "Case=Nom|Definite=Ind|Gender=Com|Number=Sing"
+                    "features": {
+                        "Case": "Nom",
+                        "Definite": "Ind",
+                        "Gender": "Com",
+                        "Number": "Sing"
+                    }
                 },
                 "token_id": "tok:0:4"
             },
@@ -220,7 +241,12 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 "lemma": "vardagsliv",
                 "ud_tags": {
                     "pos_tag": "NOUN",
-                    "features": "Case=Nom|Definite=Def|Gender=Neut|Number=Sing"
+                    "features": {
+                        "Case": "Nom",
+                        "Definite": "Def",
+                        "Gender": "Neut",
+                        "Number": "Sing"
+                    }
                 },
                 "token_id": "tok:0:6"
             },
@@ -238,7 +264,9 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 "lemma": "Olof",
                 "ud_tags": {
                     "pos_tag": "PROPN",
-                    "features": "Case=Nom"
+                    "features": {
+                        "Case": "Nom"
+                    }
                 },
                 "token_id": "tok:0:8"
             },
@@ -247,7 +275,9 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                 "lemma": "Palme",
                 "ud_tags": {
                     "pos_tag": "PROPN",
-                    "features": "Case=Nom"
+                    "features": {
+                        "Case": "Nom"
+                    }
                 },
                 "token_id": "tok:0:9"
             }
@@ -271,15 +301,20 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
 
                 <dt><code>ud_tags</code></dt>
                 <dd>
-                    Här finns ordklasstaggar för detta ord i <a href="http://universaldependencies.org">Universal Dependency (UD)</a>-format. Detta format fungerar för fler språk än svenska så det kan vara användbart om du ska skicka vidare resultatet till ett annat system.
+                    Här finns ordklasstaggar för detta ord i <a href="#pos-tags">Universal Dependency (UD)-format</a>. Detta format fungerar för fler språk än svenska så det kan vara användbart om du ska skicka vidare resultatet till ett annat system.
                     <dl>
                         <dt><code>pos_tag</code></dt>
                         <dd>Ordklassen för detta ord, som förkortningar med tre eller fyra bokstäver.<br>
                         <em>Exempel: "NOUN"</em></dd>
 
                         <dt><code>features</code></dt>
-                        <dd>Mer detaljerade egenskaper för just den här ordklassen, i form av nyckel/värde-par. Om det finns flera egenskaper skiljs dom med "|"-tecknet.<br>
-                        <em>Exempel: "Case=Nom|Definite=Def|Gender=Com|Number=Sing"</em></dd>
+                        <dd>Mer detaljerade egenskaper för just den här ordklassen, i form av nyckel/värde-par. Om det finns flera värden skiljs dom med ett ","-tecken.<br>
+                         <pre><em>Exempel: {
+    "Case": "Nom",
+    "Definite": "Def",
+    "Gender": "Com",
+    "Number": "Sing"
+}</em></pre></dd>
                     </dl>
                 </dd>
 
