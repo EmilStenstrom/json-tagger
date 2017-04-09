@@ -1,6 +1,7 @@
+from string import Template
+
 import falcon
 from falcon.util.uri import parse_host
-from string import Template
 
 doc_template = Template(open("api/views/index.html", "r").read())
 
