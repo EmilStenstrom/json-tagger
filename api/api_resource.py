@@ -57,7 +57,8 @@ class ApiResource(object):
                         ("pos_tag", ud_pos_tag),
                         ("features", ud_features),
                     ])),
-                    ("token_id", "tok:{j}:{i}".format(j=j, i=i)),
+                    ("sentence_id", j),
+                    ("word_id", i),
                 ])
                 sentence_data.append(token_data)
 

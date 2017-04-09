@@ -173,7 +173,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         "Number": "Sing"
                     }
                 },
-                "token_id": "tok:0:0"
+                "sentence_id": 0,
+                "word_id": 0
             },
             {
                 "word_form": "har",
@@ -187,7 +188,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         "Voice": "Act"
                     }
                 },
-                "token_id": "tok:0:1"
+                "sentence_id": 0,
+                "word_id": 1
             },
             {
                 "word_form": "alltid",
@@ -196,7 +198,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                     "pos_tag": "ADV",
                     "features": null
                 },
-                "token_id": "tok:0:2"
+                "sentence_id": 0,
+                "word_id": 2
             },
             {
                 "word_form": "sin",
@@ -211,7 +214,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         "PronType": "Prs"
                     }
                 },
-                "token_id": "tok:0:3"
+                "sentence_id": 0,
+                "word_id": 3
             },
             {
                 "word_form": "rot",
@@ -225,7 +229,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         "Number": "Sing"
                     }
                 },
-                "token_id": "tok:0:4"
+                "sentence_id": 0,
+                "word_id": 4
             },
             {
                 "word_form": "i",
@@ -234,7 +239,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                     "pos_tag": "ADP",
                     "features": null
                 },
-                "token_id": "tok:0:5"
+                "sentence_id": 0,
+                "word_id": 5
             },
             {
                 "word_form": "vardagslivet",
@@ -248,7 +254,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         "Number": "Sing"
                     }
                 },
-                "token_id": "tok:0:6"
+                "sentence_id": 0,
+                "word_id": 6
             },
             {
                 "word_form": "-",
@@ -257,7 +264,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                     "pos_tag": "PUNCT",
                     "features": null
                 },
-                "token_id": "tok:0:7"
+                "sentence_id": 0,
+                "word_id": 7
             },
             {
                 "word_form": "Olof",
@@ -268,7 +276,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         "Case": "Nom"
                     }
                 },
-                "token_id": "tok:0:8"
+                "sentence_id": 0,
+                "word_id": 8
             },
             {
                 "word_form": "Palme",
@@ -279,7 +288,8 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                         "Case": "Nom"
                     }
                 },
-                "token_id": "tok:0:9"
+                "sentence_id": 0,
+                "word_id": 9
             }
         ]
     ]
@@ -318,9 +328,13 @@ request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagsliv
                     </dl>
                 </dd>
 
-                <dt><code>token_id</code></dt>
-                <dd>Ett ID som beskriver var i originaltexten som detta ord hittades. Börjar alltid med "net", följt av ett kolon och numret på meningen där ordet stod (första meningen är noll), följt av ett kolon och det antal tecken från början där ordet stod (första tecknet är noll).<br>
-                <em>Exempel: "tok:0:0"</em></dd>
+                <dt><code>sentence_id</code></dt>
+                <dd>Ett ID som beskriver i vilken <strong>mening</strong> i originaltexten som detta ord hittades. Första meningen är noll.<br>
+                <em>Exempel: 0</em></dd>
+
+                <dt><code>word_id</code></dt>
+                <dd>Ett ID som beskriver var i meningen detta <strong>ord</strong> hittades. Första ordet är noll.<br>
+                <em>Exempel: 0</em></dd>
             </dl>
         </dd>
     </dl>
