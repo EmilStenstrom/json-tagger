@@ -4,7 +4,7 @@ import falcon
 
 _FORWARDED_PROTO_RE = re.compile('proto=([A-Za-z]+)')
 
-class RedirectToHTTPS(object):
+class RedirectToHTTPS:
     def process_request(self, request, response):
         if request.host in ["localhost", "127.0.0.1"]:
             return
