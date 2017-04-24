@@ -1,0 +1,136 @@
+{
+    "sentences": [
+        [
+            {
+                "word_form": "F\u00f6rdomen",
+                "lemma": "F\u00f6rdom",
+                "ud_tags": {
+                    "pos_tag": "NOUN",
+                    "features": {
+                        "Case": "Nom",
+                        "Definite": "Def",
+                        "Gender": "Com",
+                        "Number": "Sing"
+                    }
+                },
+                "sentence_id": 0,
+                "word_id": 0
+            },
+            {
+                "word_form": "har",
+                "lemma": "ha",
+                "ud_tags": {
+                    "pos_tag": "VERB",
+                    "features": {
+                        "Mood": "Ind",
+                        "Tense": "Pres",
+                        "VerbForm": "Fin",
+                        "Voice": "Act"
+                    }
+                },
+                "sentence_id": 0,
+                "word_id": 1
+            },
+            {
+                "word_form": "alltid",
+                "lemma": "alltid",
+                "ud_tags": {
+                    "pos_tag": "ADV",
+                    "features": null
+                },
+                "sentence_id": 0,
+                "word_id": 2
+            },
+            {
+                "word_form": "sin",
+                "lemma": "sig",
+                "ud_tags": {
+                    "pos_tag": "DET",
+                    "features": {
+                        "Definite": "Def",
+                        "Gender": "Com",
+                        "Number": "Sing",
+                        "Poss": "Yes",
+                        "PronType": "Prs"
+                    }
+                },
+                "sentence_id": 0,
+                "word_id": 3
+            },
+            {
+                "word_form": "rot",
+                "lemma": "rot",
+                "ud_tags": {
+                    "pos_tag": "NOUN",
+                    "features": {
+                        "Case": "Nom",
+                        "Definite": "Ind",
+                        "Gender": "Com",
+                        "Number": "Sing"
+                    }
+                },
+                "sentence_id": 0,
+                "word_id": 4
+            },
+            {
+                "word_form": "i",
+                "lemma": "i",
+                "ud_tags": {
+                    "pos_tag": "ADP",
+                    "features": null
+                },
+                "sentence_id": 0,
+                "word_id": 5
+            },
+            {
+                "word_form": "vardagslivet",
+                "lemma": "vardagsliv",
+                "ud_tags": {
+                    "pos_tag": "NOUN",
+                    "features": {
+                        "Case": "Nom",
+                        "Definite": "Def",
+                        "Gender": "Neut",
+                        "Number": "Sing"
+                    }
+                },
+                "sentence_id": 0,
+                "word_id": 6
+            },
+            {
+                "word_form": "-",
+                "lemma": "-",
+                "ud_tags": {
+                    "pos_tag": "PUNCT",
+                    "features": null
+                },
+                "sentence_id": 0,
+                "word_id": 7
+            },
+            {
+                "word_form": "Olof",
+                "lemma": "Olof",
+                "ud_tags": {
+                    "pos_tag": "PROPN",
+                    "features": {
+                        "Case": "Nom"
+                    }
+                },
+                "sentence_id": 0,
+                "word_id": 8
+            },
+            {
+                "word_form": "Palme",
+                "lemma": "Palme",
+                "ud_tags": {
+                    "pos_tag": "PROPN",
+                    "features": {
+                        "Case": "Nom"
+                    }
+                },
+                "sentence_id": 0,
+                "word_id": 9
+            }
+        ]
+    ]
+}

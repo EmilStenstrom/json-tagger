@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+curl -s http://localhost:8000/tag -d "Fördomen har alltid sin rot i vardagslivet - Olof Palme"
