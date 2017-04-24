@@ -9,13 +9,13 @@ Play with it at: http://json-tagger.herokuapp.com/
 
 JSON-Tagger is built for Python 3.6. I haven't tested it on other versions, so it might work or other 3.x versions, but not on Python 2.
 
-1. Clone this project from GitHub: 
+1. Clone this project from GitHub:
 
 ```
 git clone https://github.com/EmilStenstrom/json-tagger.git json-tagger
 ```
 
-2. Install dependencies: 
+2. Install dependencies:
 
 ```
 cd json-tagger
