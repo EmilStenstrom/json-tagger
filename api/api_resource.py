@@ -3,35 +3,28 @@ import json
 from api.actions import pos_tagging
 
 class ApiResource(object):
-    def _parse_post_data(self, raw_post_data):
-        data_dict = {}
+    def parse_request_data(self, raw_post_data):
+        try:
+            raw_correct_encoded = str(raw_post_data, 'utf-8')
+        except UnicodeDecodeError:
+            raw_correct_encoded = ""
 
         try:
-            body = raw_post_data.decode('ascii')
+            raw_incorrectly_encoded = str(raw_post_data, 'latin-1')
         except UnicodeDecodeError:
-            try:
-                body = raw_post_data.decode('utf-8')
-            except UnicodeDecodeError:
-                body = None
+            raw_incorrectly_encoded = ""
 
-        if body:
-            data_dict = parse_query_string(body)
+        post_correct = parse_query_string(raw_correct_encoded).get("data", None)
+        post_incorrect = parse_query_string(raw_incorrectly_encoded).get("data", None)
 
-        return data_dict
+        return post_correct or post_incorrect or raw_correct_encoded or raw_incorrectly_encoded
 
     def on_post(self, request, response):
         body = request.stream.read()
-
-        # Support posting data via forms
-        post_data = self._parse_post_data(body)
-        data = post_data.get("data", None)
-
-        # Support posting data via POST body
-        if not data:
-            data = str(body, "utf-8")
+        data = self.parse_request_data(body)
 
         if not data:
-            return {"error": "No data posted"}
+            return {"error": "No data posted or data incorrectly encoded"}
 
         tagged_json = pos_tagging(data)
 
