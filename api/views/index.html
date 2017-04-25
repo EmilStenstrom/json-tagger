@@ -136,6 +136,7 @@
         <li><a href="#python2">Python 2</a></li>
         <li><a href="#ruby">Ruby</a></li>
         <li><a href="#node">Node.js</a></li>
+        <li><a href="#java">Java</a></li>
     </ul>
 
     <h3 id="curl">cURL</h3>
@@ -167,6 +168,32 @@ puts r.to_s</code></pre>
 request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagslivet - Olof Palme"}, function (error, response, body) {
     console.log(body)
 })</code></pre>
+
+    <h3 id="java">Java</h3>
+    <p>Spara koden nedan i en fil som heter JsonTagger.java, och kompilera den med "javac JsonTagger.java". Sen kan du köra den med "java JsonTagger".</p>
+    <pre><code class="java">import java.net.*;
+import java.io.*;
+
+public class JsonTagger {
+    public static void main(String[] args) throws Exception {
+        URL url = new URL("https://json-tagger.com/tag");
+        String text = "Fördomen har alltid sin rot i vardagslivet - Olof Palme";
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+
+        DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+        wr.write(text.getBytes());
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String output;
+        while ((output = reader.readLine()) != null) {
+            System.out.println(output);
+        }
+    }
+}
+</code></pre>
 
     <h2 id="response">Svaret från API:et</h2>
     <p>API:et returnerar <a href="http://www.json.org/">JSON</a>, ett format som det finns bibliotek för att läsa i alla programmeringsspråk.</p>
