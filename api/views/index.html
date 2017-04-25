@@ -130,26 +130,39 @@
     <h2 id="basics">Göra anrop</h2>
     <p>API:et kräver att du skickar en POST-request över HTTP. Det går att göra i alla plattformar och programmeringsspråk, men här är några av de vanligaste:</p>
 
-    <h3>cURL (finns förinstallerat på alla Mac och Linux-datorer)</h3>
+    <ul>
+        <li><a href="#curl">cURL</a></li>
+        <li><a href="#python3">Python 3</a></li>
+        <li><a href="#python2">Python 2</a></li>
+        <li><a href="#ruby">Ruby</a></li>
+        <li><a href="#node">Node.js</a></li>
+    </ul>
+
+    <h3 id="curl">cURL</h3>
+    <p>cURL finns förinstallerat på alla Mac och Linux-datorer. Starta en terminal och kör:</p>
     <pre><code class="bash">curl $site/tag -d "Fördomen har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
 
-    <h3>Python 2 (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
+    <h3 id="python3">Python 3</h3>
+    <p>Installera först <a href="http://docs.python-requests.org/en/latest/">requests</a> genom att skriva "pip install requests".</p>
+    <pre><code class="python3">import requests
+r = requests.post("$site/tag", data="Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
+print(r.json())</code></pre>
+
+    <h3 id="python2">Python 2</h3>
+    <p>Installera först <a href="http://docs.python-requests.org/en/latest/">requests</a> genom att skriva "pip install requests".</p>
     <pre><code class="python"># -*- coding: utf-8 -*-
 import requests
 r = requests.post("$site/tag", data=u"Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
 print r.json()</code></pre>
 
-    <h3>Python 3 (med hjälp av <a href="http://docs.python-requests.org/en/latest/">requests</a>)</h3>
-    <pre><code class="python3">import requests
-r = requests.post("$site/tag", data="Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
-print(r.json())</code></pre>
-
-    <h3>Ruby (med hjälp av <a href="https://github.com/tarcieri/http.rb">http.rb</a>)</h3>
+    <h3 id="ruby">Ruby</h3>
+    <p>Installera först <a href="https://github.com/tarcieri/http.rb">http.rb</a> genom att skriva "gem install http".</p>
     <pre><code class="ruby">require 'http'
 r = HTTP.post("$site/tag", :body => "Fördomen har alltid sin rot i vardagslivet - Olof Palme")
 puts r.to_s</code></pre>
 
-    <h3>Node.js (med hjälp av <a href="https://github.com/request/request">request</a>)</h3>
+    <h3 id="node">Node.js</h3>
+    <p>Installera först <a href="https://github.com/request/request">request</a> genom att skriva "npm install -g request".</p>
     <pre><code class="javascript">var request = require('request');
 request.post({url: '$site/tag', body: "Fördomen har alltid sin rot i vardagslivet - Olof Palme"}, function (error, response, body) {
     console.log(body)
