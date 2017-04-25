@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
+export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
 
 diff -b <(bash tests/run_curl) <(cat tests/response_compact.txt) && echo "run_curl: success"
 diff -b <(python2 tests/run_python2_encoded.py) <(cat tests/response_compact.txt) && echo "run_python2_encoded: success"
