@@ -2,11 +2,11 @@
 
 export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
 
-diff -b <(bash tests/run_curl) <(cat tests/response_compact.txt) && echo "run_curl: success"
-diff -b <(python2 tests/run_python2_encoded.py) <(cat tests/response_compact.txt) && echo "run_python2_encoded: success"
-diff -b <(python2 tests/run_python2.py) <(cat tests/response_compact.txt) && echo "run_python2: success"
-diff -b <(python tests/run_python3_encoded.py) <(cat tests/response_compact.txt) && echo "run_python3_encoded: success"
-diff -b <(python tests/run_python3.py) <(cat tests/response_compact.txt) && echo "run_python3: success"
-diff -b <(python tests/run_python3_pretty.py) <(cat tests/response_pretty.txt) && echo "run_python3_pretty: success"
-diff -b <(ruby tests/run_ruby.rb) <(cat tests/response_compact.txt) && echo "run_ruby: success"
-diff -b <(node tests/run_node.js) <(cat tests/response_compact.txt) && echo "run_node: success"
+diff -b <(bash tests/run_curl) <(cat tests/response_compact.txt) && echo "run_curl: success" || echo "run_curl: fail"
+diff -b <(python2 tests/run_python2_encoded.py) <(cat tests/response_compact.txt) && echo "run_python2_encoded: success" || echo "run_python2_encoded: fail"
+diff -b <(python2 tests/run_python2.py) <(cat tests/response_compact.txt) && echo "run_python2: success" || echo "run_python2: fail"
+diff -b <(python3 tests/run_python3_encoded.py) <(cat tests/response_compact.txt) && echo "run_python3_encoded: success" || echo "run_python3_encoded: fail"
+diff -b <(python3 tests/run_python3.py) <(cat tests/response_compact.txt) && echo "run_python3: success" || echo "run_python3: fail"
+diff -b <(python3 tests/run_python3_pretty.py) <(cat tests/response_pretty.txt) && echo "run_python3_pretty: success" || echo "run_python3_pretty: fail"
+diff -b <(ruby tests/run_ruby.rb) <(cat tests/response_compact.txt) && echo "run_ruby: success" || echo "run_ruby: fail"
+diff -b <(node tests/run_node.js) <(cat tests/response_compact.txt) && echo "run_node: success" || echo "run_node: fail"
