@@ -4,31 +4,36 @@ from api.actions import pos_tagging
 
 class ApiResource(object):
     def parse_request_data(self, raw_post_data):
+        encoded_raw_post_data = ""
         try:
-            raw_correct_encoded = str(raw_post_data, 'utf-8')
+            encoded_raw_post_data = str(raw_post_data, 'utf-8')
         except UnicodeDecodeError:
-            raw_correct_encoded = ""
+            try:
+                encoded_raw_post_data = str(raw_post_data, 'latin-1')
+            except UnicodeDecodeError:
+                pass
 
-        try:
-            raw_incorrectly_encoded = str(raw_post_data, 'latin-1')
-        except UnicodeDecodeError:
-            raw_incorrectly_encoded = ""
-
-        post_correct = parse_query_string(raw_correct_encoded).get("data", None)
-        post_incorrect = parse_query_string(raw_incorrectly_encoded).get("data", None)
-
-        return post_correct or post_incorrect or raw_correct_encoded or raw_incorrectly_encoded
+        return encoded_raw_post_data
 
     def on_post(self, request, response):
         body = request.stream.read()
-        data = self.parse_request_data(body)
+        encoded_raw_post_data = self.parse_request_data(body)
+
+        pretty = request.get_param("pretty")
+        if not pretty:
+            pretty = parse_query_string(encoded_raw_post_data).get("pretty", False)
+
+        data = request.get_param("data")
+        if not data:
+            data = parse_query_string(encoded_raw_post_data).get("data", False)
+            if not data:
+                data = encoded_raw_post_data
 
         if not data:
             return {"error": "No data posted or data incorrectly encoded"}
 
         tagged_json = pos_tagging(data)
 
-        pretty = request.get_param("pretty", False)
         json_kwargs = {"separators": (',', ':')}
         if pretty:
             json_kwargs = {"indent": 4, "separators": (', ', ': ')}
