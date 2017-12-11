@@ -34,8 +34,12 @@ class ApiResource(object):
 
         tagged_json = pos_tagging(data)
 
-        json_kwargs = {"separators": (',', ':')}
+        json_kwargs = {
+            "separators": (',', ':'),
+            "ensure_ascii": False,
+        }
         if pretty:
-            json_kwargs = {"indent": 4, "separators": (', ', ': ')}
+            json_kwargs["indent"] = 4
+            json_kwargs["separators"] = (', ', ': ')
 
         response.body = json.dumps(tagged_json, **json_kwargs)
