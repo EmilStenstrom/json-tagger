@@ -1,6 +1,6 @@
 from falcon.util.uri import parse_query_string
 import json
-from api.actions import pos_tagging
+from api.actions import ACTIONS
 
 class ApiResource(object):
     def parse_request_data(self, raw_post_data):
@@ -32,7 +32,15 @@ class ApiResource(object):
         if not data:
             return {"error": "No data posted or data incorrectly encoded"}
 
-        tagged_json = pos_tagging(data)
+        action_str = request.get_param("action")
+        if not action_str:
+            action_str = parse_query_string(encoded_raw_post_data).get("action", None)
+
+        if not action_str or action_str not in ACTIONS:
+            action_str = "pos_tagging"
+
+        action = ACTIONS[action_str]()
+        tagged_json = action.parse(data)
 
         json_kwargs = {"separators": (',', ':')}
         if pretty:
