@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-import sys
 import os
 import argparse
-import shutil
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--run', action="store_true")
