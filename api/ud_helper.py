@@ -1,3 +1,4 @@
+import re
 from ufal.udpipe import Model, Pipeline, ProcessingError
 
 class Parser:
@@ -17,6 +18,12 @@ class Parser:
         self.model = model
 
     def parse(self, text):
+        text = text.strip()
+
+        last_character = text.strip()[-1]
+        if re.match(r"\w", last_character, flags=re.UNICODE):
+            text += "."
+
         pipeline = Pipeline(
             self.model,
             "tokenize",
