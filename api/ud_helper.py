@@ -20,9 +20,12 @@ class Parser:
     def parse(self, text):
         text = text.strip()
 
+        # Adding a period improves detection on especially short sentences
+        period_added = False
         last_character = text.strip()[-1]
         if re.match(r"\w", last_character, flags=re.UNICODE):
             text += "."
+            period_added = True
 
         pipeline = Pipeline(
             self.model,
@@ -36,6 +39,10 @@ class Parser:
         processed = pipeline.process(text, error)
         if error.occurred():
             raise ParserException(error.message)
+
+        # Remove the period to make sure input corresponds to output
+        if period_added:
+            processed = "\n".join(processed.rstrip().split("\n")[:-1]) + "\n\n"
 
         return processed
 
