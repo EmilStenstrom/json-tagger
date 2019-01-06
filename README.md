@@ -22,13 +22,17 @@ cd json-tagger
 pip install -r requirements.txt
 ```
 
-3. Start the local web server
+3. Get a UDPipe model file
+
+Download the latest version of the udipe models from http://ufal.mff.cuni.cz/udpipe#download. Pick the language you are interested in, and put that file inside the *data* directory. Now update the path to the file in ud_helper, and in actions.py if you use a language other than Swedish.
+
+4. Start the local web server
 
 ```
 python run.py --run
 ```
 
-4. Surf to http://localhost:8000 in your browser!
+5. Surf to http://localhost:8000 in your browser!
 
 Run the tests
 -------------
