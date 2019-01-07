@@ -6,7 +6,7 @@ def run():
 	os.system("gunicorn server:app --reload --config gunicorn_config.py")
 
 def deploy():
-	os.system("git push heroku master")
+	os.system("git push dokku master")
 
 def main():
 	parser = argparse.ArgumentParser()
