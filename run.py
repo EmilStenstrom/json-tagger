@@ -2,18 +2,21 @@
 import os
 import argparse
 
+def run():
+	os.system("gunicorn server:app --reload --config gunicorn_config.py")
+
+def deploy():
+	os.system("git push heroku master")
+
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--run', action="store_true")
-	parser.add_argument('--deploy', action="store_true")
+	parser.add_argument('--deploy', action="store_true", required=False)
 	args = parser.parse_args()
 
-	if not any(vars(args).values()):
-	    parser.print_help()
-	elif args.run:
-	    os.system("gunicorn server:app --reload --config gunicorn_config.py")
-	elif args.deploy:
-	    os.system("git push heroku master")
+	if args.deploy:
+	    deploy()
+	else:
+		run()
 
 if __name__ == '__main__':
 	main()
