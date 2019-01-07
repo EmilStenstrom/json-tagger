@@ -6,18 +6,29 @@ class Parser:
         "swe": "data/swedish-talbanken-ud-2.3-181115.udpipe",
     }
 
-    def __init__(self, language):
-        model_path = self.MODELS.get(language, None)
+    def __init__(self, language, lazy_load=True):
+        self.language = language
+        self.model = None
+
+        if not lazy_load:
+            self.model = load_model(language)
+
+    def load_model(self):
+        model_path = Parser.MODELS.get(self.language, None)
         if not model_path:
-            raise ParserException("Cannot find model for language '%s'" % language)
+            raise ParserException("Cannot find model for language '%s'" % self.language)
 
         model = Model.load(model_path)
         if not model:
             raise ParserException("Cannot load model from file '%s'\n" % model_path)
 
-        self.model = model
+        return model
 
     def parse(self, text):
+        # Lazy load model file to speed up startup
+        if not self.model:
+            self.model = self.load_model()
+
         text = text.strip()
 
         # Adding a period improves detection on especially short sentences
