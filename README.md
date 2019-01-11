@@ -24,7 +24,7 @@ pip install -r requirements.txt
 
 3. Get a UDPipe model file
 
-Download the latest version of the udipe models from http://ufal.mff.cuni.cz/udpipe#download. Pick the language you are interested in, and put that file inside the *data* directory. Now update the path to the file in ud_helper, and in actions.py if you use a language other than Swedish.
+Download the latest version of the udipe models from http://ufal.mff.cuni.cz/udpipe#download. Pick the language you are interested in, create a *data* directory in the root of the project, and put the *.udipe* file there. Now update the path to the file in ud_helper, and in actions.py if you use a language other than Swedish. Done!
 
 4. Start the local web server
 
