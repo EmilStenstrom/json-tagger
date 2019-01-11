@@ -3,7 +3,13 @@ import os
 import argparse
 
 def run():
-	os.system("gunicorn server:app --reload --config gunicorn_config.py")
+	""" Reuse the Procfile to start the dev server """
+	with open("Procfile", "r") as f:
+		command = f.read().strip()
+
+	command = command.replace("web: ", "")
+	command = command.replace("--preload", "--reload")
+	os.system(command)
 
 def deploy():
 	os.system("git push dokku master")
