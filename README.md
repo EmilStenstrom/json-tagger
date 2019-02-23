@@ -3,7 +3,7 @@ JSON Tagger
 
 UDPipe finds detailed **Part-of-speech tags** (Noun, Verb, ...) in **Swedish sentences**. This code makes UDPipe available via a JSON API.
 
-Play with it at: http://json-tagger.herokuapp.com/
+Play with it at: https://json-tagger.sammanfatta.se
 
 ## How to run JSON Tagger locally
 
