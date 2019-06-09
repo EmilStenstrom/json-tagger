@@ -11,12 +11,13 @@ class Parser:
         self.model = None
 
         if not lazy_load:
-            self.model = load_model(language)
+            self.model = Parser.load_model(language)
 
-    def load_model(self):
-        model_path = Parser.MODELS.get(self.language, None)
+    @staticmethod
+    def load_model(language):
+        model_path = Parser.MODELS.get(language, None)
         if not model_path:
-            raise ParserException("Cannot find model for language '%s'" % self.language)
+            raise ParserException("Cannot find model for language '%s'" % language)
 
         model = Model.load(model_path)
         if not model:
@@ -27,7 +28,7 @@ class Parser:
     def parse(self, text):
         # Lazy load model file to speed up startup
         if not self.model:
-            self.model = self.load_model()
+            self.model = self.load_model(self.language)
 
         text = text.strip()
 
