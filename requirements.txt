@@ -1,7 +1,7 @@
 # Application dependencencies
-falcon==1.3.0
-gunicorn==19.7.1
+falcon==2.0.0
+gunicorn==19.9.0
 
 # NLP dependencencies
-ufal.udpipe==1.2.0.1
-conllu==0.7
+ufal.udpipe==1.2.0.2
+conllu==1.3.1

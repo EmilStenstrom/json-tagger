@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 from api.ud_helper import Parser as UD_Parser
-from conllu import parser as conllu_parser
+from conllu import parse as conllu_parse
 
 # Preload data into memory for quick access
 UD_PARSER = UD_Parser(language="swe")
@@ -13,7 +13,7 @@ class Action:
 class POSTagging(Action):
     def parse(self, data):
         sentences_raw = UD_PARSER.parse(data)
-        sentences_parsed = conllu_parser.parse(sentences_raw)
+        sentences_parsed = conllu_parse(sentences_raw)
         sentences = self.to_json(sentences_parsed)
 
         return OrderedDict([
