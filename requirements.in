@@ -1,0 +1,7 @@
+# Application dependencencies
+falcon
+gunicorn
+
+# NLP dependencencies
+ufal.udpipe
+conllu
