@@ -6,21 +6,29 @@
 #
 certifi==2019.9.11        # via requests
 chardet==3.0.4            # via requests
-click==7.0                # via pip-tools
+click==7.0
 conllu==2.2
 entrypoints==0.3          # via flake8
-falcon==2.0.0
+fastapi==0.45.0
 flake8==3.7.9
-gunicorn==20.0.2
+gunicorn==20.0.4
+h11==0.8.1
+httptools==0.0.13
 idna==2.8                 # via requests
 mccabe==0.6.1             # via flake8
 pip-tools==4.2.0
 pycodestyle==2.5.0        # via flake8
+pydantic==1.2
 pyflakes==2.1.1           # via flake8
+python-multipart==0.0.5
 requests==2.22.0
-six==1.13.0               # via pip-tools
+six==1.13.0
+starlette==0.12.9
 ufal.udpipe==1.2.0.3
 urllib3==1.25.7           # via requests
+uvicorn==0.10.8
+uvloop==0.14.0
+websockets==8.1
 
 # The following packages are considered to be unsafe in a requirements file:
-# setuptools==41.6.0        # via gunicorn
+# setuptools==42.0.2        # via gunicorn

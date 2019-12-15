@@ -8,7 +8,7 @@ def run():
         command = f.read().strip()
 
     command = command.replace("web: ", "")
-    command = command.replace("--preload", "--reload")
+    command += " --reload"
     os.system(command)
 
 def deploy():

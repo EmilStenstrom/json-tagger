@@ -1,5 +1,7 @@
 # Application dependencencies
-falcon
+fastapi
+python-multipart
+uvicorn
 gunicorn
 
 # NLP dependencencies
