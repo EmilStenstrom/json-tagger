@@ -5,19 +5,19 @@
 #    pip-compile requirements.in
 #
 click==7.0                # via uvicorn
-conllu==2.2
-fastapi==0.45.0
-gunicorn==20.0.4
+conllu==2.2               # via -r requirements.in
+fastapi==0.45.0           # via -r requirements.in
+gunicorn==20.0.4          # via -r requirements.in
 h11==0.8.1                # via uvicorn
-httptools==0.0.13         # via uvicorn
+httptools==0.1.1          # via uvicorn
 pydantic==1.2             # via fastapi
-python-multipart==0.0.5
+python-multipart==0.0.5   # via -r requirements.in
 six==1.13.0               # via python-multipart
 starlette==0.12.9         # via fastapi
-ufal.udpipe==1.2.0.3
-uvicorn==0.10.8
+ufal.udpipe==1.2.0.3      # via -r requirements.in
+uvicorn==0.11.7           # via -r requirements.in
 uvloop==0.14.0            # via uvicorn
 websockets==8.1           # via uvicorn
 
 # The following packages are considered to be unsafe in a requirements file:
-# setuptools==42.0.2        # via gunicorn
+# setuptools
