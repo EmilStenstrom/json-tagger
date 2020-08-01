@@ -3,7 +3,7 @@ from ufal.udpipe import Model, Pipeline, ProcessingError
 
 class Parser:
     MODELS = {
-        "swe": "data/swedish-talbanken-ud-2.4-190531.udpipe",
+        "swe": "data/swedish-talbanken-ud-2.5-191206.udpipe",
     }
 
     def __init__(self, language, lazy_load=True):
