@@ -1,7 +1,7 @@
 # Application dependencencies
 fastapi
 python-multipart
-uvicorn
+uvicorn[standard]
 gunicorn
 
 # NLP dependencencies

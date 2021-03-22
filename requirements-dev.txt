@@ -25,6 +25,10 @@ h11==0.12.0
     # via
     #   -r requirements.txt
     #   uvicorn
+httptools==0.1.1
+    # via
+    #   -r requirements.txt
+    #   uvicorn
 idna==2.10
     # via requests
 mccabe==0.6.1
@@ -41,8 +45,16 @@ pydantic==1.8.1
     #   fastapi
 pyflakes==2.3.0
     # via flake8
+python-dotenv==0.15.0
+    # via
+    #   -r requirements.txt
+    #   uvicorn
 python-multipart==0.0.5
     # via -r requirements.txt
+pyyaml==5.4.1
+    # via
+    #   -r requirements.txt
+    #   uvicorn
 requests==2.25.1
     # via -r requirements-dev.in
 six==1.15.0
@@ -63,8 +75,20 @@ ufal.udpipe==1.2.0.3
     # via -r requirements.txt
 urllib3==1.26.4
     # via requests
-uvicorn==0.13.4
+uvicorn[standard]==0.13.4
     # via -r requirements.txt
+uvloop==0.15.2
+    # via
+    #   -r requirements.txt
+    #   uvicorn
+watchgod==0.7
+    # via
+    #   -r requirements.txt
+    #   uvicorn
+websockets==8.1
+    # via
+    #   -r requirements.txt
+    #   uvicorn
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

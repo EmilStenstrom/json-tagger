@@ -14,10 +14,16 @@ gunicorn==20.0.4
     # via -r requirements.in
 h11==0.12.0
     # via uvicorn
+httptools==0.1.1
+    # via uvicorn
 pydantic==1.8.1
     # via fastapi
+python-dotenv==0.15.0
+    # via uvicorn
 python-multipart==0.0.5
     # via -r requirements.in
+pyyaml==5.4.1
+    # via uvicorn
 six==1.15.0
     # via python-multipart
 starlette==0.13.6
@@ -26,8 +32,14 @@ typing-extensions==3.7.4.3
     # via pydantic
 ufal.udpipe==1.2.0.3
     # via -r requirements.in
-uvicorn==0.13.4
+uvicorn[standard]==0.13.4
     # via -r requirements.in
+uvloop==0.15.2
+    # via uvicorn
+watchgod==0.7
+    # via uvicorn
+websockets==8.1
+    # via uvicorn
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
