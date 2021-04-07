@@ -19,7 +19,7 @@ fastapi==0.63.0
     # via -r requirements.txt
 flake8==3.9.0
     # via -r requirements-dev.in
-gunicorn==20.0.4
+gunicorn==20.1.0
     # via -r requirements.txt
 h11==0.12.0
     # via
@@ -43,9 +43,9 @@ pydantic==1.8.1
     # via
     #   -r requirements.txt
     #   fastapi
-pyflakes==2.3.0
+pyflakes==2.3.1
     # via flake8
-python-dotenv==0.15.0
+python-dotenv==0.16.0
     # via
     #   -r requirements.txt
     #   uvicorn
