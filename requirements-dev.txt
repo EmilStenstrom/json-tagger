@@ -39,7 +39,7 @@ pip-tools==6.0.1
     # via -r requirements-dev.in
 pycodestyle==2.7.0
     # via flake8
-pydantic==1.8.1
+pydantic==1.8.2
     # via
     #   -r requirements.txt
     #   fastapi
