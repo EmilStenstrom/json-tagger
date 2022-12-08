@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements-dev.in
 #
-certifi==2020.12.5
+certifi==2022.12.7
     # via requests
 chardet==4.0.0
     # via requests
@@ -71,7 +71,7 @@ typing-extensions==3.7.4.3
     # via
     #   -r requirements.txt
     #   pydantic
-ufal.udpipe==1.2.0.3
+ufal-udpipe==1.2.0.3
     # via -r requirements.txt
 urllib3==1.26.5
     # via requests
