@@ -6,7 +6,7 @@
 #
 certifi==2023.7.22
     # via requests
-chardet==4.0.0
+charset-normalizer==3.2.0
     # via requests
 click==7.1.2
     # via
@@ -55,7 +55,7 @@ pyyaml==5.4.1
     # via
     #   -r requirements.txt
     #   uvicorn
-requests==2.25.1
+requests==2.31.0
     # via -r requirements-dev.in
 six==1.15.0
     # via
