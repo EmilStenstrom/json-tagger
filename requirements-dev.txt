@@ -37,7 +37,7 @@ httptools==0.1.1
     # via
     #   -r requirements.txt
     #   uvicorn
-idna==3.6
+idna==3.7
     # via
     #   -r requirements.txt
     #   anyio
@@ -90,9 +90,7 @@ ufal-udpipe==1.2.0.3
 urllib3==1.26.18
     # via requests
 uvicorn[standard]==0.13.4
-    # via
-    #   -r requirements.txt
-    #   uvicorn
+    # via -r requirements.txt
 uvloop==0.15.2
     # via
     #   -r requirements.txt
