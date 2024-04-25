@@ -22,7 +22,7 @@ httptools==0.1.1
     # via uvicorn
 idna==3.7
     # via anyio
-pydantic==1.8.2
+pydantic==1.10.13
     # via fastapi
 python-dotenv==0.16.0
     # via uvicorn
