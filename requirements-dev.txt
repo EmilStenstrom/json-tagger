@@ -27,7 +27,7 @@ fastapi==0.109.1
     # via -r requirements.txt
 flake8==3.9.0
     # via -r requirements-dev.in
-gunicorn==20.1.0
+gunicorn==22.0.0
     # via -r requirements.txt
 h11==0.12.0
     # via
@@ -44,6 +44,10 @@ idna==3.7
     #   requests
 mccabe==0.6.1
     # via flake8
+packaging==24.0
+    # via
+    #   -r requirements.txt
+    #   gunicorn
 pep517==0.10.0
     # via pip-tools
 pip-tools==6.0.1
@@ -106,4 +110,3 @@ websockets==8.1
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
-# setuptools
