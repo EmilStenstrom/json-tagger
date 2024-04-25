@@ -14,7 +14,7 @@ exceptiongroup==1.2.0
     # via anyio
 fastapi==0.109.1
     # via -r requirements.in
-gunicorn==20.1.0
+gunicorn==22.0.0
     # via -r requirements.in
 h11==0.12.0
     # via uvicorn
@@ -22,6 +22,8 @@ httptools==0.1.1
     # via uvicorn
 idna==3.7
     # via anyio
+packaging==24.0
+    # via gunicorn
 pydantic==1.10.13
     # via fastapi
 python-dotenv==0.16.0
@@ -50,6 +52,3 @@ watchgod==0.7
     # via uvicorn
 websockets==8.1
     # via uvicorn
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
