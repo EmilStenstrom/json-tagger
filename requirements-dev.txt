@@ -91,7 +91,7 @@ typing-extensions==4.9.0
     #   starlette
 ufal-udpipe==1.2.0.3
     # via -r requirements.txt
-urllib3==1.26.18
+urllib3==1.26.19
     # via requests
 uvicorn[standard]==0.13.4
     # via -r requirements.txt
