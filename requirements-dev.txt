@@ -64,7 +64,7 @@ python-dotenv==0.16.0
     # via
     #   -r requirements.txt
     #   uvicorn
-python-multipart==0.0.7
+python-multipart==0.0.18
     # via -r requirements.txt
 pyyaml==5.4.1
     # via
