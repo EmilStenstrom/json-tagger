@@ -3,7 +3,7 @@ JSON Tagger
 
 spaCy finds detailed **Part-of-speech tags** (Noun, Verb, ...) in **Swedish sentences**. This code makes spaCy's Swedish pipeline available via a JSON API.
 
-Play with it at: https://json-tagger.sammanfatta.se
+Play with it at: https://json-tagger.com
 
 ## How to run JSON Tagger locally
 

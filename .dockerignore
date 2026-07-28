@@ -1,0 +1,9 @@
+.git
+.gitignore
+.python-version
+__pycache__
+*.py[cod]
+data
+tests
+requirements-dev.in
+requirements-dev.txt
