@@ -1,4 +1,5 @@
 import json
+import os
 from string import Template
 
 import typing
@@ -7,15 +8,26 @@ from fastapi import FastAPI
 from starlette.requests import Request
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.formparsers import FormParser
+from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 app = FastAPI(openapi_url=None, docs_url=None, redoc_url=None)
+if os.environ.get("JSON_TAGGER_ALLOW_HTTP") != "1":
+    app.add_middleware(HTTPSRedirectMiddleware)
 
-doc_template = Template(open("api/views/index.html", "r").read())
+DOC_TEMPLATE_PATH = "api/views/index.html"
+doc_template = Template(open(DOC_TEMPLATE_PATH, "r").read())
+
+
+def get_doc_template():
+    if os.environ.get("JSON_TAGGER_RELOAD_TEMPLATES") == "1":
+        return Template(open(DOC_TEMPLATE_PATH, "r").read())
+
+    return doc_template
 
 @app.get("/", response_class=HTMLResponse)
 async def readme(request: Request):
-    return doc_template.substitute(
-        site="%s://%s" % (request.url.scheme, request.headers["HOST"])
+    return get_doc_template().substitute(
+        site="https://%s" % request.headers["HOST"]
     )
 
 def maybe_pretty_json_response(indent, separators):

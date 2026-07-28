@@ -4,6 +4,9 @@ import argparse
 
 def run():
     """ Reuse the Procfile to start the dev server """
+    os.environ["JSON_TAGGER_ALLOW_HTTP"] = "1"
+    os.environ["JSON_TAGGER_RELOAD_TEMPLATES"] = "1"
+
     with open("Procfile", "r") as f:
         command = f.read().strip()
 

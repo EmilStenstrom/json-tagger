@@ -3,7 +3,7 @@
         [
             {
                 "word_form": "F\u00f6rdomen",
-                "lemma": "F\u00f6rdom",
+                "lemma": "f\u00f6rdom",
                 "ud_tags": {
                     "pos_tag": "NOUN",
                     "features": {

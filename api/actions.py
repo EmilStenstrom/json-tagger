@@ -1,10 +1,10 @@
 from collections import OrderedDict
 
-from api.ud_helper import Parser as UD_Parser
-from conllu import parse as conllu_parse
+from api.ud_helper import Parser
 
 # Preload data into memory for quick access
-UD_PARSER = UD_Parser(language="swe")
+PARSER = Parser(language="swe")
+
 
 class Action:
     def parse(self):
@@ -12,30 +12,26 @@ class Action:
 
 class POSTagging(Action):
     def parse(self, data):
-        sentences_raw = UD_PARSER.parse(data)
-        sentences_parsed = conllu_parse(sentences_raw)
-        sentences = self.to_json(sentences_parsed)
+        document = PARSER.parse(data)
+        sentences = self.to_json(document)
 
         return OrderedDict([
             ("sentences", sentences),
         ])
 
-    def to_json(self, sentences_parsed):
+    def to_json(self, document):
         sentences = []
-        for j, sentence_parsed in enumerate(sentences_parsed):
+        for j, sentence in enumerate(document.sents):
 
             sentence_data = []
-            for i, word_parsed in enumerate(sentence_parsed):
-                word = word_parsed.get("form", None)
-                lemma = word_parsed.get("lemma", None)
-                ud_pos_tag = word_parsed.get("upostag", None)
-                ud_features = word_parsed.get("feats")
+            for i, token in enumerate(sentence):
+                ud_features = token.morph.to_dict() or None
 
                 token_data = OrderedDict([
-                    ("word_form", word),
-                    ("lemma", lemma),
+                    ("word_form", token.text),
+                    ("lemma", token.lemma_),
                     ("ud_tags", OrderedDict([
-                        ("pos_tag", ud_pos_tag),
+                        ("pos_tag", token.pos_),
                         ("features", ud_features),
                     ])),
                     ("sentence_id", j),
@@ -46,6 +42,7 @@ class POSTagging(Action):
             sentences.append(sentence_data)
 
         return sentences
+
 
 ACTIONS = {
     "pos_tagging": POSTagging,

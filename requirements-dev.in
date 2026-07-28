@@ -2,4 +2,3 @@
 
 flake8
 pip-tools
-requests

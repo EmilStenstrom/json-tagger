@@ -101,25 +101,25 @@
     </ul>
 
     <h2 id="details">Om API:et</h2>
-    <p>API:et bygger på <a href="https://ufal.mff.cuni.cz/udpipe">UDPipe</a>, ett projekt vid Charles University i Tjeckien. UDPipe gör allt grovarbete:</p>
+    <p>API:et bygger på <a href="https://spacy.io/">spaCy</a> och den svenska modellen <a href="https://spacy.io/models/sv#sv_core_news_md">sv_core_news_md</a>. Modellen körs lokalt på JSON Taggers server, så texten du skickar vidarebefordras inte till någon extern språktjänst. spaCy gör allt grovarbete:</p>
     <ul class="long">
         <li><strong>Tokenisering av meningar och ord</strong> - Bryt isär texten i ord, och gruppera orden i meningar</li>
         <li><strong>Ordklasstaggning</strong> - Hitta varje ords ordklass, inklusive specifika egenskaper som singular/plural och passiva/aktiva former</li>
         <li><strong>Grundform</strong> - Hitta varje ords grundform</li>
-        <li><strong>Prestanda</strong> - Även stora datamängder på kort tid, och med väldigt lite minne vilket gör att jag kan köra allt på en billig server</li>
+        <li><strong>Prestanda</strong> - Bearbeta svensk text snabbt på en vanlig CPU</li>
     </ul>
 
     <p>JSON Tagger (detta projekt) lägger till:</p>
     <ul class="long">
-        <li><strong>Gör all data tillgänglig via JSON</strong>. UDPipe svarar med data i ConLL-U-format vilket alla inte känner till. JSON förstår sig betydligt fler på, och det passar dessutom bra för data i webbmiljö.</li>
-        <li><strong>Dokumenterar</strong> vad taggarna som UDPipe returnerar betyder (se nedan).</li>
+        <li><strong>Gör spaCys analys tillgänglig via JSON</strong>, ett format som passar bra för data i webbmiljö och som det finns stöd för i de flesta programmeringsspråk.</li>
+        <li><strong>Dokumenterar</strong> vad de Universal Dependencies-taggar som modellen returnerar betyder (se nedan).</li>
     </ul>
 
     <p>Vem ligger bakom detta?</p>
     <ul>
         <li>JSON Tagger (detta projekt) skapades av <a href="https://twitter.com/EmilStenstrom">Emil Stenström</a>.</li>
-        <li>UDPipe skapades av <a href="https://ufal.mff.cuni.cz/milan-straka">Milan Straka</a>.</li>
-        <li>(Den första versionen av JSON-tagger använde sig av <a href="https://github.com/robertostling/efselab">efselab</a>, av <a href="https://www.su.se/profiles/robe-1.187515">Robert&nbsp;Östling</a>.)</li>
+        <li><a href="https://spacy.io/">spaCy</a> utvecklas av Explosion.</li>
+        <li>Den svenska modellen bygger på <a href="https://universaldependencies.org/treebanks/sv_talbanken/">UD Swedish Talbanken</a> och Stockholm-Umeå Corpus. Modellen distribueras under licensen <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</li>
     </ul>
 
     <p>Vill du använda API:et?</p>
@@ -128,7 +128,7 @@
     </ul>
 
     <h2 id="basics">Göra anrop</h2>
-    <p>API:et kräver att du skickar en POST-request över HTTP. Det går att göra i alla plattformar och programmeringsspråk, men här är några av de vanligaste:</p>
+    <p>API:et kräver att du skickar en POST-request över HTTPS. Anrop över okrypterad HTTP omdirigeras till HTTPS. Det går att göra i alla plattformar och programmeringsspråk, men här är några av de vanligaste:</p>
 
     <ul>
         <li><a href="#curl">cURL</a></li>
@@ -144,13 +144,13 @@
     <pre><code class="bash">curl $site/tag -d "Fördomen har alltid sin rot i vardagslivet - Olof Palme"</code></pre>
 
     <h3 id="python3">Python 3</h3>
-    <p>Installera först <a href="http://docs.python-requests.org/en/latest/">requests</a> genom att skriva "pip install requests".</p>
+    <p>Installera först <a href="https://requests.readthedocs.io/">requests</a> genom att skriva "pip install requests".</p>
     <pre><code class="python3">import requests
 r = requests.post("$site/tag", data="Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
 print(r.json())</code></pre>
 
     <h3 id="python2">Python 2</h3>
-    <p>Installera först <a href="http://docs.python-requests.org/en/latest/">requests</a> genom att skriva "pip install requests".</p>
+    <p>Installera först <a href="https://requests.readthedocs.io/">requests</a> genom att skriva "pip install requests".</p>
     <pre><code class="python"># -*- coding: utf-8 -*-
 import requests
 r = requests.post("$site/tag", data=u"Fördomen har alltid sin rot i vardagslivet - Olof Palme".encode("utf-8"))
@@ -176,7 +176,7 @@ import java.io.*;
 
 public class JsonTagger {
     public static void main(String[] args) throws Exception {
-        URL url = new URL("https://json-tagger.com/tag");
+        URL url = new URL("$site/tag");
         String text = "Fördomen har alltid sin rot i vardagslivet - Olof Palme";
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -196,14 +196,14 @@ public class JsonTagger {
 </code></pre>
 
     <h2 id="response">Svaret från API:et</h2>
-    <p>API:et returnerar <a href="http://www.json.org/">JSON</a>, ett format som det finns bibliotek för att läsa i alla programmeringsspråk.</p>
+    <p>API:et returnerar <a href="https://www.json.org/">JSON</a>, ett format som det finns bibliotek för att läsa i alla programmeringsspråk.</p>
 
     <pre><code class="json">{
     "sentences": [
         [
             {
                 "word_form": "Fördomen",
-                "lemma": "Fördom",
+                "lemma": "fördom",
                 "ud_tags": {
                     "pos_tag": "NOUN",
                     "features": {
@@ -245,7 +245,7 @@ public class JsonTagger {
                 "word_form": "sin",
                 "lemma": "sig",
                 "ud_tags": {
-                    "pos_tag": "DET",
+                    "pos_tag": "PRON",
                     "features": {
                         "Definite": "Def",
                         "Gender": "Com",
@@ -380,7 +380,7 @@ public class JsonTagger {
     </dl>
 
     <h2 id="pos-tags">Förklaring av UD-ordklasstaggarna</h2>
-    <p>Förkortningarna i <code>pos_tag</code> motsvarar alltså ordklasser. Ordklasserna (både dessa och de mer specifika nedan) kommer från ett projekt som heter <a href="http://universaldependencies.org/u/pos/index.html">Universal Dependencies</a>. Taggarna är speciellt framtagna för att fungera på flera olika språk.</p>
+    <p>Förkortningarna i <code>pos_tag</code> motsvarar alltså ordklasser. Ordklasserna (både dessa och de mer specifika nedan) kommer från ett projekt som heter <a href="https://universaldependencies.org/u/pos/index.html">Universal Dependencies</a>. Taggarna är speciellt framtagna för att fungera på flera olika språk.</p>
 
     <table class="pure-table pure-table-striped">
         <thead>
@@ -411,7 +411,7 @@ public class JsonTagger {
         </tbody>
     </table>
 
-    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även specifika böjningsformer i <code>features</code>. Dessa finns dokumenterade på engelska på <a href="http://universaldependencies.org/u/feat/">Universial Dependencies feature-referens</a>.</p>
+    <p>Ordklasserna ovan är relativt grovkorniga. För att gå mer på djupet finns även specifika böjningsformer i <code>features</code>. Dessa finns dokumenterade på engelska på <a href="https://universaldependencies.org/u/feat/">Universial Dependencies feature-referens</a>.</p>
 
     <h2>Källkod</h2>
     <aside>
